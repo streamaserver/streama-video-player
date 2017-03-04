@@ -1,0 +1,20 @@
+{
+  "name": "streama-video-player",
+  "homepage": "https://github.com/dularion/streama-video-player",
+  "authors": [
+    "dularion <antonia.hulha@systaro.de>"
+  ],
+  "description": "Extracted streama video player",
+  "main": "dist/streama-video-player.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.2"
+  }
+}
