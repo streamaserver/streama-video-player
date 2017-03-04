@@ -4,7 +4,7 @@ Extracted streama video player
 
 # Usage
 ```javascript
-angular.module('yourModule', ['streama.player'])
+angular.module('yourModule', ['streama.videoPlayer'])
 
 
 // default options

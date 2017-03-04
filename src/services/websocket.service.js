@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('streama.player').factory('websocketService', [
+angular.module('streama.videoPlayer').factory('websocketService', [
   '$rootScope', 'apiService', '$timeout',
   function ($rootScope, apiService, $timeout) {
     return {

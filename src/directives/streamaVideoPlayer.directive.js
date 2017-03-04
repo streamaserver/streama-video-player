@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('streama.player').directive('streamaVideoPlayer', [
+angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
   'localStorageService', '$timeout', 'playerService', '$http',
   function (localStorageService, $timeout, playerService, $http) {
 

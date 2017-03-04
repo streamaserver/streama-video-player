@@ -1,6 +1,6 @@
-angular.module('streama.player', []);'use strict';
+angular.module('streama.videoPlayer', []);'use strict';
 
-angular.module('streama.player').directive('streamaVideoPlayer', [
+angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
   'localStorageService', '$timeout', 'playerService', '$http',
   function (localStorageService, $timeout, playerService, $http) {
 
@@ -463,7 +463,7 @@ angular.module('streama.player').directive('streamaVideoPlayer', [
   }]);
 'use strict';
 
-angular.module('streama.player').factory('playerService',
+angular.module('streama.videoPlayer').factory('playerService',
   ['$stateParams', '$sce', '$state', '$rootScope', 'websocketService', 'apiService', '$interval', '$filter',
   function ($stateParams, $sce, $state, $rootScope, websocketService, apiService, $interval, $filter) {
 
@@ -729,7 +729,7 @@ angular.module('streama.player').factory('playerService',
 }]);
 'use strict';
 
-angular.module('streama.player').factory('websocketService', [
+angular.module('streama.videoPlayer').factory('websocketService', [
   '$rootScope', 'apiService', '$timeout',
   function ($rootScope, apiService, $timeout) {
     return {

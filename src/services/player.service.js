@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('streama.player').factory('playerService',
+angular.module('streama.videoPlayer').factory('playerService',
   ['$stateParams', '$sce', '$state', '$rootScope', 'websocketService', 'apiService', '$interval', '$filter',
   function ($stateParams, $sce, $state, $rootScope, websocketService, apiService, $interval, $filter) {
 

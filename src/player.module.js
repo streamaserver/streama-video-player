@@ -1,1 +1,1 @@
-angular.module('streama.player', []);
+angular.module('streama.videoPlayer', []);
