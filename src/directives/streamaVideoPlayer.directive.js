@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
-  'localStorageService', '$timeout', 'playerService', '$http',
-  function (localStorageService, $timeout, playerService, $http) {
+  'localStorageService', '$timeout', '$http',
+  function (localStorageService, $timeout, $http) {
 
     return {
       restrict: 'AE',
@@ -256,7 +256,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					{
 						if(currEpisode == null)
 						{
-							currEpisode = playerService.getVideoOptions().currentEpisode;
+							currEpisode = $scope.options.currentEpisode;
 						}
 						if(currEpisode.intro_start < this.currentTime && this.currentTime < currEpisode.intro_end)
 						{
