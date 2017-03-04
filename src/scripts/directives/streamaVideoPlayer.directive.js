@@ -6,7 +6,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 
     return {
       restrict: 'AE',
-      templateUrl: '/templates/player/streama-video-player.directive.html',
+      templateUrl: 'streama-video-player.directive.html',
       scope: {
         options: '='
       },
