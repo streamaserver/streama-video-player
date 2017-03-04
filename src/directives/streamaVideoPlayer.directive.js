@@ -54,8 +54,10 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 
 					$elem.addClass('nocursor');
 
-					initMouseWheel();
-					initMousetrap();
+					if(!$scope.options.isTouch){
+						initMouseWheel();
+						initMousetrap();
+					}
 					initExternalTriggers();
 					initIsMobile();
 					$scope.volumeLevel = localStorageService.get('volumeLevel') || 5;
