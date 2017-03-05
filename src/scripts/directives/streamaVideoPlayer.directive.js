@@ -35,6 +35,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				$scope.closeVideo = closeVideo;
 				$scope.clickVideo = clickVideo;
 				$scope.fullScreen = toggleFullScreen;
+				$scope.currentTime = 0;
 				$scope.next = $scope.options.onNext;
 				$scope.isInitialized = false;
 				$scope.loading = true;
@@ -123,9 +124,8 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 							onStart: function () {
 								isAutoScrubberUpdate = false;
 							},
-							onChange: function(id) {
-								console.log('on change ' + id); // logs 'on change slider-id'
-							},
+							// onChange: function(id) {
+							// },
 							onEnd: function(sliderId, modelValue, highValue, pointerType) {
 								video.currentTime = modelValue;
 								$scope.currentTime = modelValue;

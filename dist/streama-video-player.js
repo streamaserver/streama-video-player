@@ -38,6 +38,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				$scope.closeVideo = closeVideo;
 				$scope.clickVideo = clickVideo;
 				$scope.fullScreen = toggleFullScreen;
+				$scope.currentTime = 0;
 				$scope.next = $scope.options.onNext;
 				$scope.isInitialized = false;
 				$scope.loading = true;
@@ -126,9 +127,8 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 							onStart: function () {
 								isAutoScrubberUpdate = false;
 							},
-							onChange: function(id) {
-								console.log('on change ' + id); // logs 'on change slider-id'
-							},
+							// onChange: function(id) {
+							// },
 							onEnd: function(sliderId, modelValue, highValue, pointerType) {
 								video.currentTime = modelValue;
 								$scope.currentTime = modelValue;
@@ -413,6 +413,25 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
     }
   }]);
 
+
+angular.module('streama.videoPlayer').filter('streamaSecondsToDateTime', [function() {
+	return function(seconds) {
+		return new Date(1970, 0, 1).setSeconds(seconds);
+	};
+}]);
+
+
+angular.module('streama.videoPlayer').filter('streamaVideoTime', ['$filter', function($filter) {
+	return function(seconds) {
+		var date =  new Date(1970, 0, 1).setSeconds(seconds);
+		if(seconds >= 3600){
+			return $filter('date')(date, 'hh:mm:ss');
+		}else{
+			return $filter('date')(date, 'mm:ss');
+		}
+	};
+}]);
+
 'use strict';
 
 angular.module('streama.videoPlayer').factory('streamaVideoPlayerService', [
@@ -530,22 +549,3 @@ angular.module('streama.videoPlayer').factory('streamaVideoPlayerService', [
 		}
 
 	}]);
-
-
-angular.module('streama.videoPlayer').filter('streamaSecondsToDateTime', [function() {
-	return function(seconds) {
-		return new Date(1970, 0, 1).setSeconds(seconds);
-	};
-}]);
-
-
-angular.module('streama.videoPlayer').filter('streamaVideoTime', ['$filter', function($filter) {
-	return function(seconds) {
-		var date =  new Date(1970, 0, 1).setSeconds(seconds);
-		if(seconds >= 3600){
-			return $filter('date')(date, 'hh:mm:ss');
-		}else{
-			return $filter('date')(date, 'mm:ss');
-		}
-	};
-}]);
