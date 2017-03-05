@@ -7,6 +7,15 @@ streama-video-player{
   }
 }
 
+.volume-info {
+  display: block;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  text-shadow: 0 0 15px black;
+}
+
 .video-wrapper-inner,
 .player-wrapper{
   @include flexbox;
@@ -23,7 +32,7 @@ streama-video-player{
 
 .player-wrapper{
   color: white;
-  font-family: Arial;
+  font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
 
   video {
     width: 100%;

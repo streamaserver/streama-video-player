@@ -101,20 +101,20 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
           $scope.overlayVisible = false;
 
 
-          // controlDisplayTimeout = $timeout(function(){
-          //   $scope.controlsVisible = false;
-					//
-          //   if(!$scope.playing){
-          //     overlayTimeout = $timeout(function () {
-          //       if(!$scope.playing){
-          //         $scope.overlayVisible = true;
-          //       }
-          //     }, 5000);
-          //   }else{
-          //     $elem.addClass('nocursor');
-          //   }
-					//
-          // }, 1000);
+          controlDisplayTimeout = $timeout(function(){
+            $scope.controlsVisible = false;
+
+            if(!$scope.playing){
+              overlayTimeout = $timeout(function () {
+                if(!$scope.playing){
+                  $scope.overlayVisible = true;
+                }
+              }, 5000);
+            }else{
+              $elem.addClass('nocursor');
+            }
+
+          }, 1000);
         }
 
 				function generateScrupperOoptions(videoDuration) {
