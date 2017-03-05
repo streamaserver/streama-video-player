@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
-  'localStorageService', '$timeout', '$http',
-  function (localStorageService, $timeout, $http) {
+  'localStorageService', '$timeout', '$http', 'streamaVideoPlayerService', '$filter',
+  function (localStorageService, $timeout, $http, streamaVideoPlayerService, $filter) {
 
     return {
       restrict: 'AE',
@@ -12,17 +12,18 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
       },
 
       link: function ($scope, $elem, $attrs) {
+      	$scope.options = angular.merge(streamaVideoPlayerService.getDefaultOptions(), $scope.options);
 				var video;
         var controlDisplayTimeout;
         var overlayTimeout;
         var volumeChangeTimeout;
         var currentTimeChangeTimeout;
 				var currEpisode = null;
-        var skippingDuration = 20;  //Skipping duration for holding an arrow key to left or right.
-        var longSkippingDuration = 60; //Skipping duration for holding ctrl + arrow key.
         var skipIntro = true;         //Userflag intro should be skipped
         var minimizeOnOutro = true;   //Userflag skip to next episode on outro
 				var videoSrc = $scope.options.videoSrc.toString();
+				var isAutoScrubberUpdate = true;
+
 
 				$scope.showControls = showControls;
 				$scope.toggleSelectEpisodes = toggleSelectEpisodes;
@@ -39,15 +40,19 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				$scope.loading = true;
 				$scope.initialPlay = false;
 
-				$http.head(videoSrc)
-          .success(function(){
-            initDirective();
-          })
-          .error(function(data, status) {
-            if(status == 406){
-              $scope.options.onError('FILE_IN_FS_NOT_FOUND');
-            }
-          });
+				if(!$scope.options.isExternalLink){
+					$http.head(videoSrc)
+						.success(function(){
+							initDirective();
+						})
+						.error(function(data, status) {
+							if(status == 406){
+								$scope.options.onError('FILE_IN_FS_NOT_FOUND');
+							}
+						});
+				}else{
+					initDirective();
+				}
 
 				function initDirective() {
 					$scope.isInitialized = true;
@@ -56,7 +61,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 
 					if(!$scope.options.isTouch){
 						initMouseWheel();
-						initMousetrap();
+						streamaVideoPlayerService.initMousetrap(video, $scope, skipActivated, changeVolume);
 					}
 					initExternalTriggers();
 					initIsMobile();
@@ -74,7 +79,6 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 						video.onerror = onerror;
 						video.ontimeupdate = ontimeupdate;
 						video.addEventListener('ended', onVideoEnded);
-						$scope.scrubberOptions = generateScrupperOoptions();
 						$scope.volumeScrubberOptions = generateVolumeScrubberOptions();
 					});
 				}
@@ -88,37 +92,46 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
           $scope.overlayVisible = false;
 
 
-          controlDisplayTimeout = $timeout(function(){
-            $scope.controlsVisible = false;
-
-            if(!$scope.playing){
-              overlayTimeout = $timeout(function () {
-                if(!$scope.playing){
-                  $scope.overlayVisible = true;
-                }
-              }, 5000);
-            }else{
-              $elem.addClass('nocursor');
-            }
-
-          }, 1000);
+          // controlDisplayTimeout = $timeout(function(){
+          //   $scope.controlsVisible = false;
+					//
+          //   if(!$scope.playing){
+          //     overlayTimeout = $timeout(function () {
+          //       if(!$scope.playing){
+          //         $scope.overlayVisible = true;
+          //       }
+          //     }, 5000);
+          //   }else{
+          //     $elem.addClass('nocursor');
+          //   }
+					//
+          // }, 1000);
         }
 
-				function generateScrupperOoptions() {
-					return {
-						orientation: 'horizontal',
-						min: 0,
-						max: 255,
-						range: 'min',
-						change: function (e, slider) {
-							angular.element('#playerDurationSlider .ui-slider-handle').blur();
-						},
-						stop: function (e, slider) {
-							angular.element('#playerDurationSlider .ui-slider-handle').blur();
-							video.currentTime = slider.value;
-							$scope.currentTime = slider.value;
-							$scope.options.onTimeChange(slider, $scope.videoDuration);
-
+				function generateScrupperOoptions(videoDuration) {
+					$scope.scrubber = {
+						value: 0,
+						options: {
+							floor: 0,
+							ceil: videoDuration,
+							step: 1,
+							hideLimitLabels: true,
+							hidePointerLabels: true,
+							// translate: function(value) {
+							// 	return $filter('streamaVideoTime')(value);
+							// },
+							onStart: function () {
+								isAutoScrubberUpdate = false;
+							},
+							onChange: function(id) {
+								console.log('on change ' + id); // logs 'on change slider-id'
+							},
+							onEnd: function(sliderId, modelValue, highValue, pointerType) {
+								video.currentTime = modelValue;
+								$scope.currentTime = modelValue;
+								isAutoScrubberUpdate = true;
+								// $scope.options.onTimeChange(slider, $scope.videoDuration);
+							}
 						}
 					};
 				}
@@ -252,6 +265,9 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				}
 
 				function ontimeupdate(event){
+					if(!isAutoScrubberUpdate){
+						return;
+					}
 					$scope.currentTime = video.currentTime;
 					$scope.$apply();
 					if(skipIntro)
@@ -294,8 +310,10 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 							$scope.pause();
 						}
 						$scope.videoDuration = video.duration;
+						generateScrupperOoptions(video.duration);
+
 						video.currentTime = $scope.options.customStartingTime || 0;
-						$scope.currentTime = video.currentTime;
+						$scope.currentTime = video.currentTime || 0;
 						$scope.initialPlay = true;
 						if($scope.options.videoTrack){
 							video.textTracks[0].mode = "hidden";
@@ -386,78 +404,6 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					});
 				}
 
-				function initMousetrap() {
-          //Shortcuts:
-					Mousetrap.bind('left', function (event) {
-						event.preventDefault();
-						skipActivated();
-						video.currentTime -= skippingDuration;
-					}, 'keyup');
-
-					Mousetrap.bind('right', function (event) {
-						event.preventDefault();
-						skipActivated();
-						video.currentTime += skippingDuration;
-					}, 'keyup');
-
-					Mousetrap.bind('ctrl+right', function (event) {
-						event.preventDefault();
-						skipActivated();
-						video.currentTime += longSkippingDuration;
-					}, 'keyup');
-
-					Mousetrap.bind('ctrl+left', function (event) {
-						event.preventDefault();
-						skipActivated();
-						video.currentTime -= longSkippingDuration;
-					}, 'keyup');
-
-					Mousetrap.bind('alt+enter', function (event) {
-						event.preventDefault();
-						$scope.fullScreen();
-					});
-
-					Mousetrap.bind(['backspace', 'del'], function (event) {
-						event.preventDefault();
-						$scope.closeVideo();
-					});
-
-					Mousetrap.bind('s', function (event) {
-						event.preventDefault();
-						$scope.toggleTextTrack();
-					});
-
-					Mousetrap.bind('up', function (event) {
-						event.preventDefault();
-						changeVolume(1);
-					});
-
-					Mousetrap.bind('down', function (event) {
-						event.preventDefault();
-						changeVolume(-1);
-					});
-
-					Mousetrap.bind('m', function (event) {
-						event.preventDefault();
-						$scope.playerVolumeToggle();
-						$scope.showControls();
-					});
-
-					Mousetrap.bind('e', function (event) {
-						event.preventDefault();
-						$scope.toggleSelectEpisodes();
-						$scope.showControls();
-					});
-
-					Mousetrap.bind('space', function () {
-						if ($scope.playing) {
-							$scope.pause();
-						} else {
-							$scope.play();
-						}
-						$scope.$apply();
-					});
-				}
 
 
 			}

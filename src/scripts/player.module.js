@@ -1,1 +1,1 @@
-angular.module('streama.videoPlayer', []);
+angular.module('streama.videoPlayer', ['LocalStorageModule', 'rzModule']);
