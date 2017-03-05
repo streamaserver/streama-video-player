@@ -80,9 +80,14 @@
   right: -10px;
 
   .volume-menu-content{
+    padding: 13px 1px;
     background-color: #272727;
     border-radius: 9px 9px 0 0;
     box-shadow: 0 -1px 7px rgba(0, 0, 0, 0.66);
+
+    .rzslider{
+      height: 120px;
+    }
   }
 }
 
@@ -200,7 +205,7 @@
 
 .slider-ui-wrapper{
   @include flexbox;
-  @include align-items(center);
+  @include align-items(flex-end);
   position: absolute;
   top: -22px;
   left: 0;
@@ -213,7 +218,7 @@
   .time-display{
     @include flex(none);
     font-size: 14px;
-    margin: 0 5px 0 17px;
+    margin: 0 5px 10px 17px;
     color: white;
 
     strong{

@@ -8,6 +8,7 @@ angular.module('streama.videoPlayer').factory('streamaVideoPlayerService', [
 
 		return {
 			getDefaultOptions: getDefaultOptions,
+			initOptions: initOptions,
 			initMousetrap: initMousetrap
 		};
 
@@ -27,7 +28,7 @@ angular.module('streama.videoPlayer').factory('streamaVideoPlayerService', [
 				showNextButton: false,
 				showSocketSession: true,
 				episodeList: [],
-				selectedEpisodes: [],
+				selectedEpisodes: null,
 				currentEpisode: {},
 				onSocketSessionCreate: angular.noop,
 				onTimeChange: angular.noop,
@@ -41,6 +42,15 @@ angular.module('streama.videoPlayer').factory('streamaVideoPlayerService', [
 			};
 		}
 
+
+		function initOptions(options) {
+			if(!options.selectedEpisodes && options.showEpisodeBrowser && options.currentEpisode && options.episodeList){
+				options.selectedEpisodes = options.episodeList[options.currentEpisode.season];
+			}
+
+			return angular.merge(getDefaultOptions(), options);
+
+		}
 
 		function initMousetrap(video, $scope, skipActivated, changeVolume) {
 			Mousetrap.bind('left', function (event) {

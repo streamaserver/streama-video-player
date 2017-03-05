@@ -1,5 +1,5 @@
-angular.module('streama.videoPlayer', ['LocalStorageModule', 'rzModule']);
-angular.module('streama.videoPlayer').run(['$templateCache', function($templateCache) {$templateCache.put('streama-video-player.directive.html','<div class="player-wrapper">\n  <div class="video-wrapper-inner"  ng-mousemove="showControls()">\n    <div>\n      <div class="volume-info" ng-show="volumeChanged">\n        {{volumeLevel * 10}}% Volume\n      </div>\n\n      <div class="volume-info" ng-show="currentTimeChanged">\n        <br>\n        <strong ng-show="currentTime">\n          <span>{{currentTime | streamaVideoTime}}</span>\n        </strong>\n        <span>{{videoDuration | streamaVideoTime}}</span>\n      </div>\n    </div>\n\n    <i class="ion-android-arrow-back player-back" ng-class="{\'visible\': controlsVisible}" ng-click="closeVideo()"></i>\n\n\n    <div class="spinner" ng-show="loading">\n      <div class="bounce1"></div>\n      <div class="bounce2"></div>\n      <div class="bounce3"></div>\n    </div>\n\n    <div class="overlay" ng-class="{\'visible\': overlayVisible}" ng-if="options.videoOverlayEnabled">\n      <div class="video-info">\n        <p>You\'re watching</p>\n\n        <h1>{{options.videoMetaTitle}}</h1>\n        <h3>{{options.videoMetaSubtitle}}</h3>\n        <p ng-if="!isMobile">{{options.videoMetaDescription}}</p>\n      </div>\n    </div>\n\n    <i ng-if="isMobile && !playing && canplay" class="play-button ion-ios-play" ng-click="pause();play()"></i>\n\n    <div class="player-controls-wrapper player-active no-select" ng-class="{\'visible\': controlsVisible}" ng-hide="loading && !initialPlay">\n\n      <div class="slider-ui-wrapper" ng-show="!volumeOpen">\n        <div class="scrupper-wrapper">\n          <rzslider rz-slider-model="currentTime" rz-slider-options="scrubber.options"></rzslider>\n        </div>\n\n        <!--<div id="playerDurationSlider" class="player-ui-slider" ui-slider="scrubberOptions" min="0" max="{{videoDuration}}" ng-model="currentTime"></div>-->\n        <div class="time-display">\n          <strong ng-show="currentTime">\n            <span>{{currentTime | streamaVideoTime}}</span>\n          </strong>\n          <span>{{videoDuration | streamaVideoTime}}</span>\n        </div>\n      </div>\n\n      <section class="player-control-bar no-select">\n\n        <div class="player-control-button player-play-pause play ion-play" ng-show="!playing" ng-click="play()"></div>\n\n        <div class="player-control-button player-play-pause play ion-pause" ng-show="playing" ng-click="pause()"></div>\n\n        <div class="volume-control player-control-button volume" ng-mouseleave="volumeOpen = false" ng-mouseenter="volumeOpen = true">\n          <i ng-class="{\n        \'ion-volume-mute\': volumeLevel == 0,\n        \'ion-volume-low\': volumeLevel > 0 && volumeLevel < 3,\n        \'ion-volume-medium\': volumeLevel >= 3 && volumeLevel < 6,\n        \'ion-volume-high\': volumeLevel >= 6\n        }" ng-click="playerVolumeToggle()"\n          ></i>\n\n          <div id="player-menu-volume" class="player-menu" ng-show="volumeOpen">\n            <div class="volume-menu-content">\n\n              <div id="playerVolumeSlider" class="player-ui-slider volume-scrubber" ui-slider="volumeScrubberOptions"  min="0" max="10" step="1" ng-model="volumeLevel"></div>\n            </div>\n          </div>\n        </div>\n\n\n        <div class="player-status">\n          <span class="player-status-main-title">{{options.videoMetaTitle}}</span>\n          <span>{{options.videoMetaSubtitle}}</span>\n        </div>\n\n        <div class="player-control-button player-next-episode ion-ios-skipforward" ng-if="options.showNextButton" ng-click="next()"></div>\n\n        <div class="player-control-button player-episode-selector" ng-if="options.showEpisodeBrowser">\n          <i class="ion-ios-browsers" ng-click="episodeBrowseOpen = !episodeBrowseOpen"></i>\n          <div id="player-menu-episode-selector" class="player-menu" ng-show="episodeBrowseOpen">\n            <div class="episode-selector-container">\n              <div class="episode-selector-slider" ng-class="{\'slide-left\': options.selectedEpisodes}">\n                <div class="season-list-container">\n                  <h2 class="seasons-title">{{options.videoMetaTitle}}</h2>\n                  <ul class="season-list">\n                    <li class="season" ng-click="toggleSelectEpisodes(episodes)"\n                        ng-repeat="(season, episodes) in options.episodeList">\n                      <span>{{\'VIDEO.SEASON\' | translate}} {{season}}</span>\n                    </li>\n                  </ul>\n                </div>\n              </div>\n\n              <div class="episode-selector-slider" ng-class="{\'slide-left\': options.selectedEpisodes}">\n                <div class="season-list-container">\n                  <h2 class="seasons-title" ng-click="toggleSelectEpisodes()">\n                    <span class="back-button"><i class="ion-chevron-left"></i></span>\n                    {{\'VIDEO.SEASON\' | translate}} {{options.selectedEpisodes[0].season_number}}\n                  </h2>\n                  <ul class="episode-list">\n                    <li class="episode" ng-repeat="episode in options.selectedEpisodes"\n                        ng-class="{\'current\': (episode.episode_number == options.currentEpisode.episode && episode.season_number == options.currentEpisode.season), \'no-files\': !episode.hasFile}" >\n                      <div class="flex-wrapper">\n                        <span class="episode-number">{{episode.episode_number | padnumber:2}}</span>\n                        <span class="episode-name" ng-click="visible = !visible">{{episode.name}}</span>\n                        <span class="episode-play" ng-if="episode.hasFile" ui-sref="player({videoId: episode.id})"><i class="ion-play"></i></span>\n                      </div>\n\n                      <div class="extra-episode-info" ng-if="visible || (episode.episode_number == video.episode_number && episode.season_number == video.season_number)">\n                        <div class="image-wrapper">\n                          <img ng-if="episode.still_path" ng-src="https://image.tmdb.org/t/p/w92/{{episode.still_path}}"/>\n                          <div ng-if="!episode.still_path" class="fallback-image"></div>\n                        </div>\n\n                        <p>{{episode.overview.length > 250 ? (episode.overview.substring(0, 250) + \'...\') : episode.overview}}</p>\n                      </div>\n                    </li>\n                  </ul>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class="player-control-button player-fill-screen ion-android-wifi" ng-if="options.showSocketSession" ng-click="createNewPlayerSession()"></div>\n\n        <div class="player-control-button player-fill-screen ion-android-textsms" ng-if="options.videoTrack" ng-class="{\'inactive\': !isTextTrackVisible}" ng-click="toggleTextTrack()"></div>\n\n        <div class="player-control-button player-fill-screen"\n             ng-click="fullScreen()" ng-class="{\'ion-arrow-shrink\': isFullScreen, \'ion-arrow-expand\': !isFullScreen}"></div>\n      </section>\n    </div>\n\n\n    <video ng-if="isInitialized" id="video" ng-src="{{options.videoSrc}}" type="{{options.videoType}}" ng-click="clickVideo()">\n      <track ng-if="options.videoTrack" ng-src="{{options.videoTrack}}" kind="subtitles" srclang="en" label="English">\n    </video>\n\n  </div>\n</div>\n\n\n');
+angular.module('streama.videoPlayer', ['LocalStorageModule', 'rzModule', 'streama.translations']);
+angular.module('streama.videoPlayer').run(['$templateCache', function($templateCache) {$templateCache.put('streama-video-player.directive.html','<div class="player-wrapper">\n  <div class="video-wrapper-inner"  ng-mousemove="showControls()">\n    <div>\n      <div class="volume-info" ng-show="volumeChanged">\n        {{volumeLevel * 10}}% Volume\n      </div>\n\n      <div class="volume-info" ng-show="currentTimeChanged">\n        <br>\n        <strong ng-show="currentTime">\n          <span>{{currentTime | streamaVideoTime}}</span>\n        </strong>\n        <span>{{videoDuration | streamaVideoTime}}</span>\n      </div>\n    </div>\n\n    <i class="ion-android-arrow-back player-back" ng-class="{\'visible\': controlsVisible}" ng-click="closeVideo()"></i>\n\n\n    <div class="spinner" ng-show="loading">\n      <div class="bounce1"></div>\n      <div class="bounce2"></div>\n      <div class="bounce3"></div>\n    </div>\n\n    <div class="overlay" ng-class="{\'visible\': overlayVisible}" ng-if="options.videoOverlayEnabled">\n      <div class="video-info">\n        <p>You\'re watching</p>\n\n        <h1>{{options.videoMetaTitle}}</h1>\n        <h3>{{options.videoMetaSubtitle}}</h3>\n        <p ng-if="!isMobile">{{options.videoMetaDescription}}</p>\n      </div>\n    </div>\n\n    <i ng-if="isMobile && !playing && canplay" class="play-button ion-ios-play" ng-click="pause();play()"></i>\n\n    <div class="player-controls-wrapper player-active no-select" ng-class="{\'visible\': controlsVisible}" ng-hide="loading && !initialPlay">\n\n      <div class="slider-ui-wrapper" ng-show="!volumeOpen">\n        <div class="scrupper-wrapper">\n          <rzslider rz-slider-model="currentTime" rz-slider-options="scrubber.options"></rzslider>\n        </div>\n\n        <!--<div id="playerDurationSlider" class="player-ui-slider" ui-slider="scrubberOptions" min="0" max="{{videoDuration}}" ng-model="currentTime"></div>-->\n        <div class="time-display">\n          <strong ng-show="currentTime">\n            <span>{{currentTime | streamaVideoTime}}</span>\n          </strong>\n          <span>{{videoDuration | streamaVideoTime}}</span>\n        </div>\n      </div>\n\n      <section class="player-control-bar no-select">\n\n        <div class="player-control-button player-play-pause play ion-play" ng-show="!playing" ng-click="play()"></div>\n\n        <div class="player-control-button player-play-pause play ion-pause" ng-show="playing" ng-click="pause()"></div>\n\n        <div class="volume-control player-control-button volume" ng-mouseleave="volumeOpen = false" ng-mouseenter="volumeOpen = true">\n          <i ng-class="{\n        \'ion-volume-mute\': volumeLevel == 0,\n        \'ion-volume-low\': volumeLevel > 0 && volumeLevel < 3,\n        \'ion-volume-medium\': volumeLevel >= 3 && volumeLevel < 6,\n        \'ion-volume-high\': volumeLevel >= 6\n        }" ng-click="playerVolumeToggle()"\n          ></i>\n\n          <div id="player-menu-volume" class="player-menu" ng-show="volumeOpen">\n            <div class="volume-menu-content">\n              <rzslider style="height: 120px;" rz-slider-model="volumeLevel" rz-slider-options="volume.options"></rzslider>\n            </div>\n          </div>\n        </div>\n\n\n        <div class="player-status">\n          <span class="player-status-main-title">{{options.videoMetaTitle}}</span>\n          <span>{{options.videoMetaSubtitle}}</span>\n        </div>\n\n        <div class="player-control-button player-next-episode ion-ios-skipforward" ng-if="options.showNextButton" ng-click="next()"></div>\n\n        <div class="player-control-button player-episode-selector" ng-if="options.showEpisodeBrowser">\n          <i class="ion-ios-browsers" ng-click="episodeBrowseOpen = !episodeBrowseOpen"></i>\n          <div id="player-menu-episode-selector" class="player-menu" ng-show="episodeBrowseOpen">\n            <div class="episode-selector-container">\n              <div class="episode-selector-slider" ng-class="{\'slide-left\': options.selectedEpisodes}">\n                <div class="season-list-container">\n                  <h2 class="seasons-title">{{options.videoMetaTitle}}</h2>\n                  <ul class="season-list">\n                    <li class="season" ng-click="toggleSelectEpisodes(episodes)"\n                        ng-repeat="(season, episodes) in options.episodeList">\n                      <span>{{\'VIDEO.SEASON\' | translate}} {{season}}</span>\n                    </li>\n                  </ul>\n                </div>\n              </div>\n\n              <div class="episode-selector-slider" ng-class="{\'slide-left\': options.selectedEpisodes}">\n                <div class="season-list-container">\n                  <h2 class="seasons-title" ng-click="toggleSelectEpisodes()">\n                    <span class="back-button"><i class="ion-chevron-left"></i></span>\n                    {{\'VIDEO.SEASON\' | translate}} {{options.selectedEpisodes[0].season_number}}\n                  </h2>\n                  <ul class="episode-list">\n                    <li class="episode" ng-repeat="episode in options.selectedEpisodes"\n                        ng-class="{\'current\': (episode.episode_number == options.currentEpisode.episode && episode.season_number == options.currentEpisode.season), \'no-files\': !episode.hasFile}" >\n                      <div class="flex-wrapper">\n                        <span class="episode-number">{{episode.episode_number | streamaPadnumber:2}}</span>\n                        <span class="episode-name" ng-click="visible = !visible">{{episode.name}}</span>\n                        <span class="episode-play" ng-if="episode.hasFile" ui-sref="player({videoId: episode.id})"><i class="ion-play"></i></span>\n                      </div>\n\n                      <div class="extra-episode-info" ng-if="visible || (episode.episode_number == video.episode_number && episode.season_number == video.season_number)">\n                        <div class="image-wrapper">\n                          <img ng-if="episode.still_path" ng-src="https://image.tmdb.org/t/p/w92/{{episode.still_path}}"/>\n                          <div ng-if="!episode.still_path" class="fallback-image"></div>\n                        </div>\n\n                        <p>{{episode.overview.length > 250 ? (episode.overview.substring(0, 250) + \'...\') : episode.overview}}</p>\n                      </div>\n                    </li>\n                  </ul>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class="player-control-button player-fill-screen ion-android-wifi" ng-if="options.showSocketSession" ng-click="createNewPlayerSession()"></div>\n\n        <div class="player-control-button player-fill-screen ion-android-textsms" ng-if="options.videoTrack" ng-class="{\'inactive\': !isTextTrackVisible}" ng-click="toggleTextTrack()"></div>\n\n        <div class="player-control-button player-fill-screen"\n             ng-click="fullScreen()" ng-class="{\'ion-arrow-shrink\': isFullScreen, \'ion-arrow-expand\': !isFullScreen}"></div>\n      </section>\n    </div>\n\n\n    <video ng-if="isInitialized" id="video" ng-src="{{options.videoSrc}}" type="{{options.videoType}}" ng-click="clickVideo()">\n      <track ng-if="options.videoTrack" ng-src="{{options.videoTrack}}" kind="subtitles" srclang="en" label="English">\n    </video>\n\n  </div>\n</div>\n\n\n');
 $templateCache.put('streama-video-player.touch.directive.html','<div class="video-wrapper-inner"  ng-mousemove="showControls()" ng-mouseleave="delayHideControls()">\n\n  <div>\n    <div class="volume-info" ng-show="volumeChanged">\n      {{volumeLevel * 10}}% Volume\n    </div>\n\n    <div class="volume-info" ng-show="currentTimeChanged">\n      <br>\n      <strong ng-show="currentTime">\n        <span ng-if="currentTime >= 3600">{{currentTime | streamaSecondsToDateTime | date:\'hh:mm:ss\'}}</span>\n        <span ng-if="currentTime < 3600">{{currentTime | streamaSecondsToDateTime | date:\'mm:ss\'}}</span>\n      </strong>\n      <span ng-if="videoDuration >= 3600">{{videoDuration | streamaSecondsToDateTime | date:\'hh:mm:ss\'}}</span>\n      <span ng-if="videoDuration < 3600">{{videoDuration | streamaSecondsToDateTime | date:\'mm:ss\'}}</span>\n    </div>\n  </div>\n\n  <i class="ion-android-arrow-back player-back" ng-class="{\'visible\': controlsVisible}" ng-click="closeVideo()"></i>\n\n\n  <div class="spinner" ng-show="loading">\n    <div class="bounce1"></div>\n    <div class="bounce2"></div>\n    <div class="bounce3"></div>\n  </div>\n\n  <div class="overlay" ng-class="{\'visible\': overlayVisible}" ng-if="options.videoOverlayEnabled">\n    <div class="video-info">\n      <p>You\'re watching</p>\n\n      <h1>{{options.videoMetaTitle}}</h1>\n      <h3>{{options.videoMetaSubtitle}}</h3>\n      <p ng-if="!isMobile">{{options.videoMetaDescription}}</p>\n    </div>\n  </div>\n\n  <i ng-if="isMobile && !playing && canplay" class="play-button ion-ios-play" ng-click="pause();play()"></i>\n\n  <div class="player-controls-wrapper player-active no-select" ng-class="{\'visible\': controlsVisible}" ng-hide="loading && !initialPlay">\n\n    <div class="slider-ui-wrapper" ng-show="!volumeOpen">\n      <div id="playerDurationSlider" class="player-ui-slider" ui-slider="scrubberOptions" min="0" max="{{videoDuration}}" ng-model="currentTime"></div>\n      <div class="time-display">\n        <strong ng-show="currentTime">\n          <span ng-if="currentTime >= 3600">{{currentTime | secondsToDateTime | date:\'hh:mm:ss\'}}</span>\n          <span ng-if="currentTime < 3600">{{currentTime | secondsToDateTime | date:\'mm:ss\'}}</span>\n        </strong>\n        <span ng-if="videoDuration >= 3600">{{videoDuration | secondsToDateTime | date:\'hh:mm:ss\'}}</span>\n        <span ng-if="videoDuration < 3600">{{videoDuration | secondsToDateTime | date:\'mm:ss\'}}</span>\n      </div>\n    </div>\n\n    <section class="player-control-bar no-select">\n\n      <div class="player-control-button player-play-pause play ion-play" ng-show="!playing" ng-click="play()"></div>\n\n      <div class="player-control-button player-play-pause play ion-pause" ng-show="playing" ng-click="pause()"></div>\n\n      <div class="volume-control player-control-button volume" ng-mouseleave="volumeOpen = false" ng-mouseenter="volumeOpen = true">\n        <i ng-class="{\n        \'ion-volume-mute\': volumeLevel == 0,\n        \'ion-volume-low\': volumeLevel > 0 && volumeLevel < 3,\n        \'ion-volume-medium\': volumeLevel >= 3 && volumeLevel < 6,\n        \'ion-volume-high\': volumeLevel >= 6\n        }" ng-click="playerVolumeToggle()"\n        ></i>\n\n        <div id="player-menu-volume" class="player-menu" ng-show="volumeOpen">\n          <div class="volume-menu-content">\n\n            <div id="playerVolumeSlider" class="player-ui-slider volume-scrubber" ui-slider="volumeScrubberOptions"  min="0" max="10" step="1" ng-model="volumeLevel"></div>\n          </div>\n        </div>\n      </div>\n\n\n      <div class="player-status">\n        <span class="player-status-main-title">{{options.videoMetaTitle}}</span>\n        <span>{{options.videoMetaSubtitle}}</span>\n      </div>\n\n      <div class="player-control-button player-next-episode ion-ios-skipforward" ng-if="options.showNextButton" ng-click="next()"></div>\n\n      <div class="player-control-button player-episode-selector" ng-if="options.showEpisodeBrowser">\n        <i class="ion-ios-browsers" ng-click="episodeBrowseOpen = !episodeBrowseOpen"></i>\n        <div id="player-menu-episode-selector" class="player-menu" ng-show="episodeBrowseOpen">\n          <div class="episode-selector-container">\n            <div class="episode-selector-slider" ng-class="{\'slide-left\': options.selectedEpisodes}">\n              <div class="season-list-container">\n                <h2 class="seasons-title">{{options.videoMetaTitle}}</h2>\n                <ul class="season-list">\n                  <li class="season" ng-click="toggleSelectEpisodes(episodes)"\n                      ng-repeat="(season, episodes) in options.episodeList">\n                    <span>{{\'VIDEO.SEASON\' | translate}} {{season}}</span>\n                  </li>\n                </ul>\n              </div>\n            </div>\n\n            <div class="episode-selector-slider" ng-class="{\'slide-left\': options.selectedEpisodes}">\n              <div class="season-list-container">\n                <h2 class="seasons-title" ng-click="toggleSelectEpisodes()">\n                  <span class="back-button"><i class="ion-chevron-left"></i></span>\n                  {{\'VIDEO.SEASON\' | translate}} {{options.selectedEpisodes[0].season_number}}\n                </h2>\n                <ul class="episode-list">\n                  <li class="episode" ng-repeat="episode in options.selectedEpisodes"\n                      ng-class="{\'current\': (episode.episode_number == options.currentEpisode.episode && episode.season_number == options.currentEpisode.season), \'no-files\': !episode.hasFile}" >\n                    <div class="flex-wrapper">\n                      <span class="episode-number">{{episode.episode_number | padnumber:2}}</span>\n                      <span class="episode-name" ng-click="visible = !visible">{{episode.name}}</span>\n                      <span class="episode-play" ng-if="episode.hasFile" ui-sref="player({videoId: episode.id})"><i class="ion-play"></i></span>\n                    </div>\n\n                    <div class="extra-episode-info" ng-if="visible || (episode.episode_number == video.episode_number && episode.season_number == video.season_number)">\n                      <div class="image-wrapper">\n                        <img ng-if="episode.still_path" ng-src="https://image.tmdb.org/t/p/w92/{{episode.still_path}}"/>\n                        <div ng-if="!episode.still_path" class="fallback-image"></div>\n                      </div>\n\n                      <p>{{episode.overview.length > 250 ? (episode.overview.substring(0, 250) + \'...\') : episode.overview}}</p>\n                    </div>\n                  </li>\n                </ul>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n\n      <div class="player-control-button player-fill-screen ion-android-wifi" ng-if="options.showSocketSession" ng-click="createNewPlayerSession()"></div>\n\n      <div class="player-control-button player-fill-screen ion-android-textsms" ng-if="options.videoTrack" ng-class="{\'inactive\': !isTextTrackVisible}" ng-click="toggleTextTrack()"></div>\n\n      <div class="player-control-button player-fill-screen"\n           ng-click="fullScreen()" ng-class="{\'ion-arrow-shrink\': isFullScreen, \'ion-arrow-expand\': !isFullScreen}"></div>\n    </section>\n  </div>\n\n\n  <video ng-if="isInitialized" id="video" ng-src="{{options.videoSrc}}" type="{{options.videoType}}" ng-click="clickVideo()">\n    <track ng-if="options.videoTrack" ng-src="{{options.videoTrack}}" kind="subtitles" srclang="en" label="English">\n  </video>\n\n</div>\n\n\n');}]);
 'use strict';
 
@@ -15,7 +15,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
       },
 
       link: function ($scope, $elem, $attrs) {
-      	$scope.options = angular.merge(streamaVideoPlayerService.getDefaultOptions(), $scope.options);
+				$scope.options = streamaVideoPlayerService.initOptions($scope.options);
 				var video;
         var controlDisplayTimeout;
         var overlayTimeout;
@@ -44,6 +44,15 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				$scope.loading = true;
 				$scope.initialPlay = false;
 
+				$scope.verticalSlider1 = {
+					value: 5,
+					options: {
+						floor: 0,
+						ceil: 10,
+						vertical: true
+					}
+				};
+
 				if(!$scope.options.isExternalLink){
 					$http.head(videoSrc)
 						.success(function(){
@@ -69,9 +78,9 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					}
 					initExternalTriggers();
 					initIsMobile();
-					$scope.volumeLevel = localStorageService.get('volumeLevel') || 5;
 					$scope.$on('$destroy', onDirectiveDestroy);
 					$scope.$on('$stateChangeSuccess', onStateChangeSuccess);
+					generateVolumeScrubberOptions();
 
 					$timeout(function () {
 						var $video = $elem.find('video');
@@ -83,7 +92,6 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 						video.onerror = onerror;
 						video.ontimeupdate = ontimeupdate;
 						video.addEventListener('ended', onVideoEnded);
-						$scope.volumeScrubberOptions = generateVolumeScrubberOptions();
 					});
 				}
 
@@ -114,7 +122,6 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 
 				function generateScrupperOoptions(videoDuration) {
 					$scope.scrubber = {
-						value: 0,
 						options: {
 							floor: 0,
 							ceil: videoDuration,
@@ -140,16 +147,23 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				}
 
 				function generateVolumeScrubberOptions() {
-					return {
-						orientation: 'vertical',
-						range: 'min',
-						change: function (e, slider) {
-							setVolume(slider);
-							angular.element('#playerVolumeSlider .ui-slider-handle').blur();
-						},
-						slide: function (e, slider) {
-							setVolume(slider);
-							angular.element('#playerVolumeSlider .ui-slider-handle').blur();
+					$scope.volumeLevel = localStorageService.get('volumeLevel') || 5;
+					$scope.volume = {
+						options: {
+							floor: 0,
+							ceil: 10,
+							step: 0.1,
+							// precision: 1,
+							hideLimitLabels: true,
+							hidePointerLabels: true,
+							vertical: true,
+							onChange: function (sliderId, modelValue, highValue, pointerType) {
+								setVolume(modelValue);
+							}
+						// slide: function (e, slider) {
+						// 	setVolume(slider);
+						// 	angular.element('#playerVolumeSlider .ui-slider-handle').blur();
+						// }
 						}
 					};
 				}
@@ -210,11 +224,11 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					}
 				}
 
-				function setVolume(slider) {
-					var volume = slider.value / 10;
+				function setVolume(value) {
+					var volume = value / 10;
 					video.volume = volume;
 					if($scope.options.rememberVolumeSetting){
-						localStorageService.set('volumeLevel', $scope.volumeLevel);
+						localStorageService.set('volumeLevel', value);
 					}
 				}
 
@@ -414,12 +428,19 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
   }]);
 
 
-angular.module('streama.videoPlayer').filter('streamaSecondsToDateTime', [function() {
-	return function(seconds) {
-		return new Date(1970, 0, 1).setSeconds(seconds);
+angular.module('streama.videoPlayer').filter('streamaPadnumber', [function () {
+	return function(input, length) {
+		return pad(input, length);
 	};
-}]);
 
+
+	function pad(n, width, z) {
+		z = z || '0';
+		n = n + '';
+		return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+	}
+
+}]);
 
 angular.module('streama.videoPlayer').filter('streamaVideoTime', ['$filter', function($filter) {
 	return function(seconds) {
@@ -442,6 +463,7 @@ angular.module('streama.videoPlayer').factory('streamaVideoPlayerService', [
 
 		return {
 			getDefaultOptions: getDefaultOptions,
+			initOptions: initOptions,
 			initMousetrap: initMousetrap
 		};
 
@@ -461,7 +483,7 @@ angular.module('streama.videoPlayer').factory('streamaVideoPlayerService', [
 				showNextButton: false,
 				showSocketSession: true,
 				episodeList: [],
-				selectedEpisodes: [],
+				selectedEpisodes: null,
 				currentEpisode: {},
 				onSocketSessionCreate: angular.noop,
 				onTimeChange: angular.noop,
@@ -475,6 +497,15 @@ angular.module('streama.videoPlayer').factory('streamaVideoPlayerService', [
 			};
 		}
 
+
+		function initOptions(options) {
+			if(!options.selectedEpisodes && options.showEpisodeBrowser && options.currentEpisode && options.episodeList){
+				options.selectedEpisodes = options.episodeList[options.currentEpisode.season];
+			}
+
+			return angular.merge(getDefaultOptions(), options);
+
+		}
 
 		function initMousetrap(video, $scope, skipActivated, changeVolume) {
 			Mousetrap.bind('left', function (event) {

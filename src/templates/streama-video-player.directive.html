@@ -68,8 +68,7 @@
 
           <div id="player-menu-volume" class="player-menu" ng-show="volumeOpen">
             <div class="volume-menu-content">
-
-              <div id="playerVolumeSlider" class="player-ui-slider volume-scrubber" ui-slider="volumeScrubberOptions"  min="0" max="10" step="1" ng-model="volumeLevel"></div>
+              <rzslider style="height: 120px;" rz-slider-model="volumeLevel" rz-slider-options="volume.options"></rzslider>
             </div>
           </div>
         </div>
@@ -108,7 +107,7 @@
                     <li class="episode" ng-repeat="episode in options.selectedEpisodes"
                         ng-class="{'current': (episode.episode_number == options.currentEpisode.episode && episode.season_number == options.currentEpisode.season), 'no-files': !episode.hasFile}" >
                       <div class="flex-wrapper">
-                        <span class="episode-number">{{episode.episode_number | padnumber:2}}</span>
+                        <span class="episode-number">{{episode.episode_number | streamaPadnumber:2}}</span>
                         <span class="episode-name" ng-click="visible = !visible">{{episode.name}}</span>
                         <span class="episode-play" ng-if="episode.hasFile" ui-sref="player({videoId: episode.id})"><i class="ion-play"></i></span>
                       </div>

@@ -12,7 +12,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
       },
 
       link: function ($scope, $elem, $attrs) {
-      	$scope.options = angular.merge(streamaVideoPlayerService.getDefaultOptions(), $scope.options);
+				$scope.options = streamaVideoPlayerService.initOptions($scope.options);
 				var video;
         var controlDisplayTimeout;
         var overlayTimeout;
@@ -41,6 +41,15 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				$scope.loading = true;
 				$scope.initialPlay = false;
 
+				$scope.verticalSlider1 = {
+					value: 5,
+					options: {
+						floor: 0,
+						ceil: 10,
+						vertical: true
+					}
+				};
+
 				if(!$scope.options.isExternalLink){
 					$http.head(videoSrc)
 						.success(function(){
@@ -66,9 +75,9 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					}
 					initExternalTriggers();
 					initIsMobile();
-					$scope.volumeLevel = localStorageService.get('volumeLevel') || 5;
 					$scope.$on('$destroy', onDirectiveDestroy);
 					$scope.$on('$stateChangeSuccess', onStateChangeSuccess);
+					generateVolumeScrubberOptions();
 
 					$timeout(function () {
 						var $video = $elem.find('video');
@@ -80,7 +89,6 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 						video.onerror = onerror;
 						video.ontimeupdate = ontimeupdate;
 						video.addEventListener('ended', onVideoEnded);
-						$scope.volumeScrubberOptions = generateVolumeScrubberOptions();
 					});
 				}
 
@@ -111,7 +119,6 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 
 				function generateScrupperOoptions(videoDuration) {
 					$scope.scrubber = {
-						value: 0,
 						options: {
 							floor: 0,
 							ceil: videoDuration,
@@ -137,16 +144,23 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				}
 
 				function generateVolumeScrubberOptions() {
-					return {
-						orientation: 'vertical',
-						range: 'min',
-						change: function (e, slider) {
-							setVolume(slider);
-							angular.element('#playerVolumeSlider .ui-slider-handle').blur();
-						},
-						slide: function (e, slider) {
-							setVolume(slider);
-							angular.element('#playerVolumeSlider .ui-slider-handle').blur();
+					$scope.volumeLevel = localStorageService.get('volumeLevel') || 5;
+					$scope.volume = {
+						options: {
+							floor: 0,
+							ceil: 10,
+							step: 0.1,
+							// precision: 1,
+							hideLimitLabels: true,
+							hidePointerLabels: true,
+							vertical: true,
+							onChange: function (sliderId, modelValue, highValue, pointerType) {
+								setVolume(modelValue);
+							}
+						// slide: function (e, slider) {
+						// 	setVolume(slider);
+						// 	angular.element('#playerVolumeSlider .ui-slider-handle').blur();
+						// }
 						}
 					};
 				}
@@ -207,11 +221,11 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					}
 				}
 
-				function setVolume(slider) {
-					var volume = slider.value / 10;
+				function setVolume(value) {
+					var volume = value / 10;
 					video.volume = volume;
 					if($scope.options.rememberVolumeSetting){
-						localStorageService.set('volumeLevel', $scope.volumeLevel);
+						localStorageService.set('volumeLevel', value);
 					}
 				}
 

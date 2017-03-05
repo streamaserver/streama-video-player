@@ -24,6 +24,7 @@
     "Ionicons": "ionicons#^2.0.1",
     "angularjs-slider": "^6.0.2",
     "normalize-scss": "^3.0.3",
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "streama-i18n": "*"
   }
 }

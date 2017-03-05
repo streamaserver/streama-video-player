@@ -4,17 +4,27 @@
   <meta charset="UTF-8">
   <title>Title</title>
   <script src="../bower_components/angular/angular.js"></script>
+  <script src="../bower_components/angular-translate/angular-translate.js"></script>
   <script src="../bower_components/jquery/dist/jquery.js"></script>
   <script src="../bower_components/jquery-mousewheel/jquery.mousewheel.js"></script>
   <script src="../bower_components/mousetrap/mousetrap.js"></script>
   <script src="../bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
   <script src="../bower_components/angularjs-slider/dist/rzslider.min.js"></script>
+  <script src="../bower_components/streama-i18n/dist/streama-i18n.min.js"></script>
   <script src="../dist/streama-video-player.js"></script>
   <link rel="stylesheet" href="../bower_components/Ionicons/css/ionicons.css">
   <link rel="stylesheet" href="../bower_components/angularjs-slider/dist/rzslider.css">
   <link rel="stylesheet" href="../dist/streama-video-player.css">
+
+  <style>
+    body{
+      background: black;
+    }
+  </style>
 </head>
 <body ng-app="myModule">
+
+
   <streama-video-player options="$root.videoOptions">
   </streama-video-player>
 
@@ -23,9 +33,23 @@
     angular.module('myModule', ['streama.videoPlayer']).run(function ($rootScope) {
 			$rootScope.videoOptions = {
         videoSrc: 'http://clips.vorwaerts-gmbh.de/VfE_html5.mp4',
-				isExternalLink: true
+				isExternalLink: true,
+				episodeList: {
+        	1: [
+						{id: 1, name: 'test', season_number: 1, episode_number:1, episodeString: 's01e01'}
+          ]
+        },
+				showEpisodeBrowser: true,
+				currentEpisode : {
+					episode: 1,
+					season: 1
+				}
       }
+
 		});
+
+
+
   </script>
 </body>
 </html>
