@@ -1,0 +1,79 @@
+.player-controls-mobile{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(black 0%, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0) 70%, black 100%);
+  z-index: 8;
+
+  .player-controls-topbar{
+    padding: 0 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    @include flexbox;
+    @include align-items(center);
+  }
+
+  .player-controls-bottombar {
+    padding: 0 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    @include flexbox;
+    @include align-items(center);
+  }
+
+  .player-controls-metaTitle{
+    font-size: 20px;
+  }
+
+  .player-control-button{
+    font-size: 32px;
+    width: 1em;
+  }
+
+  .player-controls-box{
+    @include flex(none);
+    padding: 25px;
+  }
+
+  .rzslider{
+    margin-top: 15px;
+
+    .rz-bar:not(.rz-selection){
+      background: rgba(216, 224, 243, 0.25);
+    }
+  }
+  .time-display{
+
+  }
+
+  .player-controls-stretch{
+    @include flex(1);
+  }
+
+}
+
+.player-controls-mobile-overlay-box{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background-color: black;
+
+  .player-controls-mobile-overlay-box-close{
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 30px;
+    padding: 27px;
+    width: 1em;
+    text-align: center;
+  }
+}

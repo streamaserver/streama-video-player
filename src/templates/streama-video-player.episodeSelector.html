@@ -1,0 +1,22 @@
+<div class="mobile-episode-selector-container">
+  <div class="mobile-episode-selector-season-tabs">
+    <div class="mobile-episode-selector-season-tab" ng-repeat="(season, episodes) in options.episodeList">
+      <span>{{'VIDEO.SEASON' | translate}} {{season}}</span>
+    </div>
+  </div>
+
+  <div class="mobile-episode-selector-inner">
+    <div class="mobile-episode-box" ng-repeat="episode in options.selectedEpisodes">
+      <div class="image-wrapper">
+        <img ng-if="episode.still_path" ng-src="https://image.tmdb.org/t/p/w92/{{episode.still_path}}"/>
+        <div ng-if="!episode.still_path" class="fallback-image"></div>
+      </div>
+      <h3>
+        <span class="episode-number">{{episode.episode_number | streamaPadnumber:2}}</span>
+        <span class="episode-name" ng-click="visible = !visible">{{episode.name}}</span>
+      </h3>
+      <p>{{episode.overview.length > 250 ? (episode.overview.substring(0, 250) + '...') : episode.overview}}</p>
+    </div>
+  </div>
+  
+</div>
