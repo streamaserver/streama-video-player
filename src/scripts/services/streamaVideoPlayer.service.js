@@ -28,7 +28,7 @@ angular.module('streama.videoPlayer').factory('streamaVideoPlayerService', [
 				showEpisodeBrowser: false,
 				showNextButton: false,
 				showSocketSession: true,
-				episodeList: [],
+				episodeList: {},
 				selectedEpisodes: null,
 				currentEpisode: {},
 				onSocketSessionCreate: angular.noop,
