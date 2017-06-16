@@ -27,7 +27,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 
     return {
       restrict: 'AE',
-      templateUrl: 'streama-video-player.html',
+      templateUrl: 'streama-video-player.touch.html',
       scope: {
         options: '='
       },
@@ -430,14 +430,14 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				function initIsMobile() {
 					$scope.isMobile = $scope.options.isMobile;
 
-					if($scope.isMobile){
-						console.log('%c MOBILE', 'color: deeppink; font-weight: bold; text-shadow: 0 0 5px deeppink;');
-						$scope.playerTemplate = 'streama-video-player.touch.html';
-					}
-					else{
-						console.log('%c DESKTOP', 'color: deeppink; font-weight: bold; text-shadow: 0 0 5px deeppink;');
-						$scope.playerTemplate = 'streama-video-player.desktop.html';
-					}
+					// if($scope.isMobile){
+					// 	console.log('%c MOBILE', 'color: deeppink; font-weight: bold; text-shadow: 0 0 5px deeppink;');
+					// 	$scope.playerTemplate = 'streama-video-player.touch.html';
+					// }
+					// else{
+					// 	console.log('%c DESKTOP', 'color: deeppink; font-weight: bold; text-shadow: 0 0 5px deeppink;');
+					// 	$scope.playerTemplate = 'streama-video-player.desktop.html';
+					// }
 				}
 				//Shows the video's current time and duration on the upper right corner of the screen for a limited time.
 				function skipActivated(){
@@ -469,32 +469,6 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 			}
     }
   }]);
-
-
-angular.module('streama.videoPlayer').filter('streamaPadnumber', [function () {
-	return function(input, length) {
-		return pad(input, length);
-	};
-
-
-	function pad(n, width, z) {
-		z = z || '0';
-		n = n + '';
-		return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
-	}
-
-}]);
-
-angular.module('streama.videoPlayer').filter('streamaVideoTime', ['$filter', function($filter) {
-	return function(seconds) {
-		var date =  new Date(1970, 0, 1).setSeconds(seconds);
-		if(seconds >= 3600){
-			return $filter('date')(date, 'hh:mm:ss');
-		}else{
-			return $filter('date')(date, 'mm:ss');
-		}
-	};
-}]);
 
 'use strict';
 
@@ -638,3 +612,29 @@ angular.module('streama.videoPlayer').factory('streamaVideoPlayerService', [
 		}
 
 	}]);
+
+
+angular.module('streama.videoPlayer').filter('streamaPadnumber', [function () {
+	return function(input, length) {
+		return pad(input, length);
+	};
+
+
+	function pad(n, width, z) {
+		z = z || '0';
+		n = n + '';
+		return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+	}
+
+}]);
+
+angular.module('streama.videoPlayer').filter('streamaVideoTime', ['$filter', function($filter) {
+	return function(seconds) {
+		var date =  new Date(1970, 0, 1).setSeconds(seconds);
+		if(seconds >= 3600){
+			return $filter('date')(date, 'hh:mm:ss');
+		}else{
+			return $filter('date')(date, 'mm:ss');
+		}
+	};
+}]);

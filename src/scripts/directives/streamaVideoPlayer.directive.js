@@ -6,7 +6,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 
     return {
       restrict: 'AE',
-      templateUrl: 'streama-video-player.html',
+      templateUrl: 'streama-video-player.touch.html',
       scope: {
         options: '='
       },
@@ -409,14 +409,14 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				function initIsMobile() {
 					$scope.isMobile = $scope.options.isMobile;
 
-					if($scope.isMobile){
-						console.log('%c MOBILE', 'color: deeppink; font-weight: bold; text-shadow: 0 0 5px deeppink;');
-						$scope.playerTemplate = 'streama-video-player.touch.html';
-					}
-					else{
-						console.log('%c DESKTOP', 'color: deeppink; font-weight: bold; text-shadow: 0 0 5px deeppink;');
-						$scope.playerTemplate = 'streama-video-player.desktop.html';
-					}
+					// if($scope.isMobile){
+					// 	console.log('%c MOBILE', 'color: deeppink; font-weight: bold; text-shadow: 0 0 5px deeppink;');
+					// 	$scope.playerTemplate = 'streama-video-player.touch.html';
+					// }
+					// else{
+					// 	console.log('%c DESKTOP', 'color: deeppink; font-weight: bold; text-shadow: 0 0 5px deeppink;');
+					// 	$scope.playerTemplate = 'streama-video-player.desktop.html';
+					// }
 				}
 				//Shows the video's current time and duration on the upper right corner of the screen for a limited time.
 				function skipActivated(){
