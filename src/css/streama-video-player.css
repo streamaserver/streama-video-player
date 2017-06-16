@@ -3829,6 +3829,8 @@ body.mdx-active #mdx-control-view {
   right: 0;
   background: linear-gradient(black 0%, transparent 30%, transparent 70%, black 100%);
   z-index: 8; }
+  .player-controls-mobile .player-wrapper .play-button {
+    font-size: 5em; }
   .player-controls-mobile .player-controls-topbar {
     padding: 0 10px;
     position: absolute;
@@ -3860,9 +3862,9 @@ body.mdx-active #mdx-control-view {
     -webkit-align-items: center;
     align-items: center; }
   .player-controls-mobile .player-controls-metaTitle {
-    font-size: 20px; }
+    font-size: 1em; }
   .player-controls-mobile .player-control-button {
-    font-size: 32px;
+    font-size: 24px;
     width: 1em; }
   .player-controls-mobile .player-controls-box {
     -webkit-box-flex: none;
@@ -3870,7 +3872,7 @@ body.mdx-active #mdx-control-view {
     -webkit-flex: none;
     -ms-flex: none;
     flex: none;
-    padding: 25px; }
+    padding: .8em; }
   .player-controls-mobile .rzslider {
     margin-top: 15px; }
     .player-controls-mobile .rzslider .rz-bar:not(.rz-selection) {
@@ -3893,10 +3895,86 @@ body.mdx-active #mdx-control-view {
   .player-controls-mobile-overlay-box .player-controls-mobile-overlay-box-close {
     position: absolute;
     top: 0;
-    right: 10px;
-    font-size: 30px;
-    padding: 27px;
+    right: 0;
+    font-size: 1.7em;
+    padding: .5em;
     width: 1em;
     text-align: center; }
+
+.mobile-episode-selector-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column; }
+
+.mobile-episode-selector-season-tabs {
+  margin-top: 2.5em;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  padding: 0 1em; }
+
+.mobile-episode-selector-season-tab {
+  padding: 4px 4px;
+  font-size: 1.2em;
+  margin-right: 22px;
+  font-weight: 600;
+  text-transform: uppercase; }
+
+.mobile-episode-selector-outer {
+  overflow: scroll;
+  padding: 1em 1em 1px;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex; }
+
+.mobile-episode-selector-inner {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  width: -moz-min-content;
+  width: -webkit-min-content;
+  width: min-content; }
+
+.mobile-episode-box {
+  margin-right: 1em;
+  flex: 0 0 auto;
+  width: 275px;
+  display: flex;
+  flex-direction: column; }
+  .mobile-episode-box.active {
+    border-bottom: 7px solid #B0DDEF; }
+  .mobile-episode-box img {
+    width: 100%;
+    height: auto; }
+  .mobile-episode-box h3 {
+    margin-bottom: 8px;
+    font-size: 1em;
+    margin-top: 8px; }
+  .mobile-episode-box .episode-duration {
+    float: right;
+    font-weight: 100;
+    color: #afafaf; }
+
+.episode-overview {
+  color: #afafaf;
+  font-size: 1em;
+  margin-top: 0;
+  line-height: 1.4em;
+  overflow: scroll; }
 
 /*# sourceMappingURL=streama-video-player.css.map */

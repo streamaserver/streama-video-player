@@ -7,6 +7,10 @@
   background: linear-gradient(black 0%, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0) 70%, black 100%);
   z-index: 8;
 
+  .player-wrapper .play-button{
+    font-size: 5em;
+  }
+
   .player-controls-topbar{
     padding: 0 10px;
     position: absolute;
@@ -28,17 +32,17 @@
   }
 
   .player-controls-metaTitle{
-    font-size: 20px;
+    font-size: 1em;
   }
 
   .player-control-button{
-    font-size: 32px;
+    font-size: 24px;
     width: 1em;
   }
 
   .player-controls-box{
     @include flex(none);
-    padding: 25px;
+    padding: .8em;
   }
 
   .rzslider{
@@ -70,9 +74,9 @@
   .player-controls-mobile-overlay-box-close{
     position: absolute;
     top: 0;
-    right: 10px;
-    font-size: 30px;
-    padding: 27px;
+    right: 0;
+    font-size: 1.7em;
+    padding: .5em;
     width: 1em;
     text-align: center;
   }
