@@ -26,6 +26,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 
 
 				$scope.changeEpisode = changeEpisode;
+				$scope.selectSubtitle = selectSubtitle;
 				$scope.showControls = showControls;
 				$scope.toggleSelectEpisodes = toggleSelectEpisodes;
 				$scope.createNewPlayerSession = createNewPlayerSession;
@@ -100,12 +101,40 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 						video.onerror = onerror;
 						video.ontimeupdate = ontimeupdate;
 						video.addEventListener('ended', onVideoEnded);
+						selectSubtitle(getCurrentSubtitleTrack());
 					});
 				}
 
 
 				function changeEpisode(episode) {
 					$scope.options.onEpisodeChange(episode);
+				}
+
+				function selectSubtitle(subtitle) {
+					if(!subtitle){
+						$scope.selectedSubtitleId = null;
+						localStorageService.set('selectedSubtitleLanguage', null);
+						$scope.options.onSubtitleSelect(null);
+						return;
+					}
+
+					_.forEach(video.textTracks, function(textTrack, key) {
+						if(textTrack.id === 'subtitle-' + subtitle.id) {
+							textTrack.mode = 'showing';
+						}
+						else{
+							textTrack.mode = 'hidden';
+						}
+
+					});
+
+					$scope.options.onSubtitleSelect(subtitle);
+					$scope.selectedSubtitleId = subtitle.id;
+					localStorageService.set('selectedSubtitleLanguage', subtitle.subtitleSrcLang);
+				}
+
+				function getCurrentSubtitleTrack() {
+					return _.find($scope.options.subtitles, {id: $scope.options.currentSubtitle});
 				}
 
         //$scope.controlsVisible = true;

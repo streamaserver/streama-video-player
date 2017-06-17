@@ -41,6 +41,7 @@ angular.module('streama.videoPlayer').factory('streamaVideoPlayerService', [
 				onNext: angular.noop,
 				onEpisodeChange: angular.noop,
 				onVideoClick: angular.noop,
+				onSubtitleSelect: angular.noop,
 				isTouch: false
 			};
 		}

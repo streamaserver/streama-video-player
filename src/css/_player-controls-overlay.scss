@@ -39,3 +39,28 @@
     margin-top: -250px;
   }
 }
+
+
+
+
+
+.track-selector-list{
+  margin: 10px 0;
+  padding: 0 1.5em;
+
+  .track-selector-item{
+    padding: 15px;
+    list-style: none;
+    border-bottom: 1px solid #3e3e3e;
+    font-size: 1.3em;
+    color: #b5b5b5;
+
+    i{
+      float: right;
+    }
+
+    &.active{
+      color: white;
+    }
+  }
+}

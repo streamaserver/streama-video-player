@@ -184,12 +184,17 @@ streama-video-player.nocursor {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: auto; }
-    .player-wrapper .spinner > div {
-      background: #B0DDEF;
-      width: 20px;
-      height: 20px;
-      margin-right: 12px; }
+    width: 1em;
+    line-height: 1em;
+    font-size: 70px;
+    margin-top: -45px;
+    margin-left: -45px;
+    text-align: center;
+    -moz-animation: spin 1s infinite linear;
+    -webkit-animation: spin 1s infinite linear;
+    -o-animation: spin 1s infinite linear;
+    -ms-animation: spin 1s infinite linear;
+    animation: spin 1s infinite linear; }
 
 .player-wrapper button.button {
   padding: .5em 2em;
@@ -3925,6 +3930,20 @@ body.mdx-active #mdx-control-view {
     max-height: 500px;
     top: 50%;
     margin-top: -250px; } }
+.track-selector-list {
+  margin: 10px 0;
+  padding: 0 1.5em; }
+  .track-selector-list .track-selector-item {
+    padding: 15px;
+    list-style: none;
+    border-bottom: 1px solid #3e3e3e;
+    font-size: 1.3em;
+    color: #b5b5b5; }
+    .track-selector-list .track-selector-item i {
+      float: right; }
+    .track-selector-list .track-selector-item.active {
+      color: white; }
+
 .mobile-episode-selector-season-tabs {
   display: -webkit-box;
   display: -moz-box;

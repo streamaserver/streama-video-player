@@ -6,9 +6,12 @@
     </div>
   </div>
 
-    <ul>
-      <li ng-repeat="track in options.subtitles">
+    <ul class="track-selector-list">
+      <li class="track-selector-item" ng-class="{'active': track.id == selectedSubtitleId}"
+          ng-repeat="track in options.subtitles" ng-click="selectSubtitle(track)">
         {{track.subtitleLabel}}
+
+        <i ng-if="track.id == selectedSubtitleId" class="ion-checkmark"></i>
       </li>
     </ul>
 </div>
