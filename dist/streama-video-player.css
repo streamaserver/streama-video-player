@@ -3827,6 +3827,15 @@ body.mdx-active #mdx-control-view {
     width: 90%; }
     .player-wrapper .player-controls-wrapper > section {
       margin-top: 3.8em; } }
+video.subtitle-size-lg::cue {
+  font-size: 1.4em; }
+
+video.subtitle-size-md::cue {
+  font-size: 1.2em; }
+
+video.subtitle-size-sm::cue {
+  font-size: 1em; }
+
 .player-controls-mobile {
   position: absolute;
   top: 0;
@@ -3871,7 +3880,7 @@ body.mdx-active #mdx-control-view {
     font-size: 1em; }
   .player-controls-mobile .player-control-button {
     font-size: 24px;
-    width: 1em; }
+    width: 2.5em; }
     .player-controls-mobile .player-control-button:hover {
       background: rgba(255, 255, 255, 0.1); }
   .player-controls-mobile .player-controls-box {
@@ -3906,7 +3915,7 @@ body.mdx-active #mdx-control-view {
     right: 0;
     font-size: 1.7em;
     padding: .5em;
-    width: 1em;
+    width: 2.3em;
     text-align: center;
     z-index: 999; }
 
@@ -3924,6 +3933,11 @@ body.mdx-active #mdx-control-view {
   display: flex;
   -webkit-flex-direction: column;
   flex-direction: column; }
+  .mobile-overlay-container h2 {
+    padding: 0 1.1em;
+    font-size: 1.2em;
+    font-weight: 600;
+    text-transform: uppercase; }
 
 @media (min-height: 500px) {
   .mobile-overlay-container {
@@ -3931,7 +3945,7 @@ body.mdx-active #mdx-control-view {
     top: 50%;
     margin-top: -250px; } }
 .track-selector-list {
-  margin: 10px 0;
+  margin: 10px 0 40px;
   padding: 0 1.5em; }
   .track-selector-list .track-selector-item {
     padding: 15px;
@@ -3943,6 +3957,34 @@ body.mdx-active #mdx-control-view {
       float: right; }
     .track-selector-list .track-selector-item.active {
       color: white; }
+
+.subtitle-size-picker {
+  list-style: none;
+  padding: 10px 1.5em; }
+  .subtitle-size-picker:after {
+    content: "";
+    display: table;
+    clear: both; }
+  .subtitle-size-picker li {
+    padding: 9px;
+    float: left;
+    width: 30px;
+    line-height: 30px;
+    text-align: center;
+    margin-right: 17px;
+    border: 1px solid #292929;
+    color: #b5b5b5;
+    box-sizing: content-box; }
+    .subtitle-size-picker li.active {
+      font-weight: 700;
+      color: white;
+      border-color: white; }
+    .subtitle-size-picker li.subtitle-size-lg {
+      font-size: 30px; }
+    .subtitle-size-picker li.subtitle-size-md {
+      font-size: 24px; }
+    .subtitle-size-picker li.subtitle-size-sm {
+      font-size: 16px; }
 
 .mobile-episode-selector-season-tabs {
   display: -webkit-box;
@@ -3966,7 +4008,12 @@ body.mdx-active #mdx-control-view {
   display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
-  display: flex; }
+  display: flex;
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1; }
 
 .mobile-episode-selector-inner {
   display: -webkit-box;
