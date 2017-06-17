@@ -132,7 +132,6 @@ streama-video-player.nocursor {
     position: absolute;
     top: 50%;
     left: 50%;
-    font-size: 82px;
     margin: -0.75em;
     line-height: 1.5em;
     width: 1.5em;
@@ -143,6 +142,8 @@ streama-video-player.nocursor {
     text-align: center;
     background-color: rgba(0, 0, 0, 0.33);
     z-index: 9; }
+  .player-wrapper .video-wrapper-inner > .play-button {
+    font-size: 82px; }
   .player-wrapper .player-back {
     position: absolute;
     top: 20px;
@@ -3961,6 +3962,10 @@ body.mdx-active #mdx-control-view {
   width: 275px;
   display: flex;
   flex-direction: column; }
+  .mobile-episode-box .image-wrapper {
+    position: relative; }
+  .mobile-episode-box .play-button {
+    font-size: 3em; }
   .mobile-episode-box.active {
     border-bottom: 7px solid #B0DDEF; }
     .mobile-episode-box.active h3 {
