@@ -39,7 +39,6 @@ gulp.task('scripts', function() {
 		.pipe(rename({suffix: '.min'}))
 		.pipe(uglify())
 		.pipe(gulp.dest('dist'))
-		.pipe(del(['src/scripts/streama-video-player.tpls.js']))
 		.pipe(notify({ message: 'Scripts task complete' }));
 });
 
