@@ -12,6 +12,7 @@
   <script src="../bower_components/mousetrap/mousetrap.js"></script>
   <script src="../bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
   <script src="../bower_components/angularjs-slider/dist/rzslider.min.js"></script>
+  <script src="../bower_components/lodash/lodash.js"></script>
   <script src="../bower_components/streama-i18n/dist/streama-i18n.min.js"></script>
   <script src="../dist/streama-video-player.js"></script>
   <link rel="stylesheet" href="../bower_components/Ionicons/css/ionicons.css">
@@ -34,7 +35,7 @@
   <script>
     angular.module('myModule', ['streama.videoPlayer']).run(function ($rootScope) {
 			$rootScope.videoOptions = {
-        videoSrc: 'http://clips.vorwaerts-gmbh.de/VfE_html5.mp4',
+				videoSrc: 'https://streama.club/file/serve/1497.mkv',
 				isExternalLink: true,
 				episodeList: {
         	1: [
@@ -52,8 +53,8 @@
 				},
 
         subtitles: [
-					{"id": 1561, "src": "https://streama.club/file/serve/1561.srt", "subtitleLabel": "Deutsch", "subtitleSrcLang": "de"},
-					{"id": 1562, "src": "https://streama.club/file/serve/1507.srt", "subtitleLabel": "English", "subtitleSrcLang": "en"},
+					{"id": 1561, "src": "/example/sub-de.vtt", "subtitleLabel": "Deutsch", "subtitleSrcLang": "de", "contentType": "application/x-subrip"},
+					{"id": 1562, "src": "/example/sub-en.vtt", "subtitleLabel": "English", "subtitleSrcLang": "en", "contentType": "application/x-subrip"}
         ],
 
         currentSubtitle: 1562
