@@ -14,7 +14,7 @@
     right: 0;
     font-size: 1.7em;
     padding: .5em;
-    width: 1em;
+    width: 2.3em;
     text-align: center;
     z-index: 999;
   }
@@ -46,27 +46,5 @@
     max-height: 500px;
     top: 50%;
     margin-top: -250px;
-  }
-}
-
-
-.track-selector-list{
-  margin: 10px 0;
-  padding: 0 1.5em;
-
-  .track-selector-item{
-    padding: 15px;
-    list-style: none;
-    border-bottom: 1px solid #3e3e3e;
-    font-size: 1.3em;
-    color: #b5b5b5;
-
-    i{
-      float: right;
-    }
-
-    &.active{
-      color: white;
-    }
   }
 }

@@ -31,6 +31,7 @@ angular.module('streama.videoPlayer').factory('streamaVideoPlayerService', [
 				showSocketSession: true,
 				episodeList: {},
 				selectedEpisodes: null,
+				subtitleSize: 'md',
 				currentEpisode: {},
 				onSocketSessionCreate: angular.noop,
 				onTimeChange: angular.noop,

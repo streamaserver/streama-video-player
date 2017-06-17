@@ -1,3 +1,14 @@
+
+video.subtitle-size-lg::cue {
+  font-size: 1.4em;
+}
+video.subtitle-size-md::cue {
+  font-size: 1.2em;
+}
+video.subtitle-size-sm::cue {
+  font-size: 1em;
+}
+
 .player-controls-mobile{
   position: absolute;
   top: 0;
@@ -37,7 +48,7 @@
 
   .player-control-button{
     font-size: 24px;
-    width: 1em;
+    width: 2.5em;
 
     &:hover{
       background: rgba(255, 255, 255, 0.1);

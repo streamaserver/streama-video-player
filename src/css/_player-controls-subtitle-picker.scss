@@ -1,0 +1,54 @@
+.track-selector-list{
+  margin: 10px 0 40px;
+  padding: 0 1.5em;
+
+  .track-selector-item{
+    padding: 15px;
+    list-style: none;
+    border-bottom: 1px solid #3e3e3e;
+    font-size: 1.3em;
+    color: #b5b5b5;
+
+    i{
+      float: right;
+    }
+
+    &.active{
+      color: white;
+    }
+  }
+}
+
+.subtitle-size-picker{
+  list-style: none;
+  padding: 10px 1.5em;
+  @include clearfix;
+
+  li{
+    padding: 9px;
+    float: left;
+    width: 30px;
+    line-height: 30px;
+    text-align: center;
+    margin-right: 17px;
+    border: 1px solid #292929;
+    color: #b5b5b5;
+    box-sizing: content-box;
+
+    &.active{
+      font-weight: 700;
+      color: white;
+      border-color: white;
+    }
+
+    &.subtitle-size-lg{
+      font-size: 30px;
+    }
+    &.subtitle-size-md{
+      font-size: 24px;
+    }
+    &.subtitle-size-sm{
+      font-size: 16px;
+    }
+  }
+}

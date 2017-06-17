@@ -40,6 +40,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				$scope.toggleMobileOverlayBox = toggleMobileOverlayBox;
 				$scope.clickVideo = clickVideo;
 				$scope.fullScreen = toggleFullScreen;
+				$scope.changeSubtitleSize = changeSubtitleSize;
 				$scope.currentTime = 0;
 				$scope.next = $scope.options.onNext;
 				$scope.isMobileControlsVisible = true;
@@ -83,8 +84,8 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 
 					if(!$scope.options.isTouch){
 						initMouseWheel();
-						streamaVideoPlayerService.initMousetrap(video, $scope, skipActivated, changeVolume);
 					}
+					streamaVideoPlayerService.initMousetrap(video, $scope, skipActivated, changeVolume);
 					initExternalTriggers();
 					initIsMobile();
 					$scope.$on('$destroy', onDirectiveDestroy);
@@ -232,6 +233,11 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				function toggleMobileOverlayBox(type) {
 					$scope.mobileOverlayBox.isVisble = !$scope.mobileOverlayBox.isVisble;
 					$scope.mobileOverlayBox.type = type;
+				}
+
+				function changeSubtitleSize(subtitleSize) {
+					$scope.options.subtitleSize = subtitleSize;
+					localStorageService.set('subtitleSize', subtitleSize);
 				}
 
 				function toggleFullScreen() {

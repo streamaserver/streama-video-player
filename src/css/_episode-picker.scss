@@ -16,6 +16,7 @@
   overflow: scroll;
   padding: 1em 1em 1px;
   @include flexbox;
+  @include flex(1);
 }
 
 .mobile-episode-selector-inner{
