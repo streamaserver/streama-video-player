@@ -64,7 +64,6 @@ streama-video-player{
     position: absolute;
     top: 50%;
     left: 50%;
-    font-size: 82px;
     margin: -0.75em;
     line-height: 1.5em;
     width: 1.5em;
@@ -76,6 +75,10 @@ streama-video-player{
     background-color: rgba(0, 0, 0, 0.33);
     z-index: 9;
 
+  }
+
+  .video-wrapper-inner > .play-button{
+    font-size: 82px;
   }
 
 

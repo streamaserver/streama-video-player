@@ -25,6 +25,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				var isAutoScrubberUpdate = true;
 
 
+				$scope.changeEpisode = changeEpisode;
 				$scope.showControls = showControls;
 				$scope.toggleSelectEpisodes = toggleSelectEpisodes;
 				$scope.createNewPlayerSession = createNewPlayerSession;
@@ -94,6 +95,11 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 						video.ontimeupdate = ontimeupdate;
 						video.addEventListener('ended', onVideoEnded);
 					});
+				}
+
+
+				function changeEpisode(episode) {
+					//TODO implement changeEpisode
 				}
 
         //$scope.controlsVisible = true;

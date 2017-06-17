@@ -9,6 +9,7 @@
     <div class="mobile-episode-selector-inner">
       <div class="mobile-episode-box" ng-repeat="episode in options.selectedEpisodes" ng-class="{'active': episode.id == options.currentEpisode.id}">
         <div class="image-wrapper">
+          <i ng-if="episode.id != options.currentEpisode.id" class="play-button ion-ios-play" ng-click="changeEpisode(episode)"></i>
           <img ng-if="episode.still_path" ng-src="{{episode.still_path}}"/>
           <div ng-if="!episode.still_path" class="fallback-image"></div>
         </div>

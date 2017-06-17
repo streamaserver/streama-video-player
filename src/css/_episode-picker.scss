@@ -51,6 +51,14 @@
   display: flex;
   flex-direction: column;
 
+  .image-wrapper{
+    position: relative;
+  }
+
+  .play-button{
+    font-size: 3em;
+  }
+
   &.active{
     border-bottom: 7px solid $primary;
 
