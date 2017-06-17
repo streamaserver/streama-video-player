@@ -3915,6 +3915,11 @@ body.mdx-active #mdx-control-view {
   -webkit-flex-direction: column;
   flex-direction: column; }
 
+@media (min-height: 500px) {
+  .mobile-episode-selector-container {
+    max-height: 500px;
+    top: 50%;
+    margin-top: -250px; } }
 .mobile-episode-selector-season-tabs {
   margin-top: 2.5em;
   display: -webkit-box;
@@ -3958,13 +3963,18 @@ body.mdx-active #mdx-control-view {
   flex-direction: column; }
   .mobile-episode-box.active {
     border-bottom: 7px solid #B0DDEF; }
+    .mobile-episode-box.active h3 {
+      color: white; }
+    .mobile-episode-box.active .episode-overview {
+      color: #f0f0f0; }
   .mobile-episode-box img {
     width: 100%;
     height: auto; }
   .mobile-episode-box h3 {
     margin-bottom: 8px;
     font-size: 1em;
-    margin-top: 8px; }
+    margin-top: 8px;
+    color: #afafaf; }
   .mobile-episode-box .episode-duration {
     float: right;
     font-weight: 100;

@@ -9,6 +9,14 @@
   @include flex-direction(column);
 }
 
+@media (min-height:  500px) {
+  .mobile-episode-selector-container{
+    max-height: 500px;
+    top: 50%;
+    margin-top: -250px;
+  }
+}
+
 .mobile-episode-selector-season-tabs{
   margin-top: 2.5em;
   @include flexbox;
@@ -45,6 +53,13 @@
 
   &.active{
     border-bottom: 7px solid $primary;
+
+    h3{
+      color: white;
+    }
+    .episode-overview{
+      color: #f0f0f0;
+    }
   }
 
   img{
@@ -56,6 +71,7 @@
     margin-bottom: 8px;
     font-size: 1em;
     margin-top: 8px;
+    color: #afafaf;
   }
 
   .episode-duration{
