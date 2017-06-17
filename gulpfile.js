@@ -15,16 +15,6 @@ gulp.task('default', ['clean'], function() {
 });
 
 
-gulp.task('scripts', function() {
-	return gulp.src(['src/scripts/**/*.js', 'src/scripts/streama-video-player.tpls.js' ])
-		.pipe(concat('streama-video-player.js'))
-		.pipe(gulp.dest('dist'))
-		.pipe(rename({suffix: '.min'}))
-		.pipe(uglify())
-		.pipe(gulp.dest('dist'))
-		.pipe(notify({ message: 'Scripts task complete' }));
-});
-
 
 gulp.task('styles', function() {
 	return gulp.src('src/css/streama-video-player.css')
@@ -42,6 +32,16 @@ gulp.task('templateCache', function() {
 	.pipe(notify({ message: 'Template Cache is finished' }));
 });
 
+gulp.task('scripts', function() {
+	return gulp.src(['src/scripts/**/*.js', 'src/scripts/streama-video-player.tpls.js' ])
+		.pipe(concat('streama-video-player.js'))
+		.pipe(gulp.dest('dist'))
+		.pipe(rename({suffix: '.min'}))
+		.pipe(uglify())
+		.pipe(gulp.dest('dist'))
+		.pipe(del(['src/scripts/streama-video-player.tpls.js']))
+		.pipe(notify({ message: 'Scripts task complete' }));
+});
 
 gulp.task('clean', function() {
 	return del(['dist/styles', 'dist/scripts', 'dist/images']);
