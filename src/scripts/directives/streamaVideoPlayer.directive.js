@@ -99,7 +99,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 
 
 				function changeEpisode(episode) {
-					//TODO implement changeEpisode
+					$scope.options.onEpisodeChange(episode);
 				}
 
         //$scope.controlsVisible = true;

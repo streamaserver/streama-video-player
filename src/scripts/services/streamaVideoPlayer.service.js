@@ -38,6 +38,7 @@ angular.module('streama.videoPlayer').factory('streamaVideoPlayerService', [
 				onPause: angular.noop,
 				onClose: angular.noop,
 				onNext: angular.noop,
+				onEpisodeChange: angular.noop,
 				onVideoClick: angular.noop,
 				isTouch: false
 			};
