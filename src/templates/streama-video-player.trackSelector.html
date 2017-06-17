@@ -10,6 +10,11 @@
 
           <i ng-if="track.id == selectedSubtitleId" class="ion-checkmark"></i>
         </li>
+        <li class="track-selector-item" ng-class="{'active': !selectedSubtitleId}" ng-click="selectSubtitle()">
+          {{'VIDEO.NO_SUBTITLE' | translate}}
+
+          <i ng-if="!selectedSubtitleId" class="ion-checkmark"></i>
+        </li>
       </ul>
     </div>
     <div class="col-xs-6">

@@ -112,15 +112,8 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				}
 
 				function selectSubtitle(subtitle) {
-					if(!subtitle){
-						$scope.selectedSubtitleId = null;
-						localStorageService.set('selectedSubtitleLanguage', null);
-						$scope.options.onSubtitleSelect(null);
-						return;
-					}
-
 					_.forEach(video.textTracks, function(textTrack, key) {
-						if(textTrack.id === 'subtitle-' + subtitle.id) {
+						if(subtitle && textTrack.id === 'subtitle-' + subtitle.id) {
 							textTrack.mode = 'showing';
 						}
 						else{
@@ -130,8 +123,8 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					});
 
 					$scope.options.onSubtitleSelect(subtitle);
-					$scope.selectedSubtitleId = subtitle.id;
-					localStorageService.set('selectedSubtitleLanguage', subtitle.subtitleSrcLang);
+					$scope.selectedSubtitleId = _.get(subtitle, 'id');
+					localStorageService.set('selectedSubtitleLanguage', _.get(subtitle, 'subtitleSrcLang'));
 				}
 
 				function getCurrentSubtitleTrack() {
