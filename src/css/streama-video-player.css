@@ -3900,7 +3900,8 @@ body.mdx-active #mdx-control-view {
     font-size: 1.7em;
     padding: .5em;
     width: 1em;
-    text-align: center; }
+    text-align: center;
+    z-index: 999; }
 
 .mobile-episode-selector-container {
   position: absolute;
