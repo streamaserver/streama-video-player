@@ -3867,6 +3867,8 @@ body.mdx-active #mdx-control-view {
   .player-controls-mobile .player-control-button {
     font-size: 24px;
     width: 1em; }
+    .player-controls-mobile .player-control-button:hover {
+      background: rgba(255, 255, 255, 0.1); }
   .player-controls-mobile .player-controls-box {
     -webkit-box-flex: none;
     -moz-box-flex: none;
