@@ -30,6 +30,15 @@
 
   @include flexbox;
   @include flex-direction(column);
+
+
+  h2{
+    padding: 0 1.1em;
+    font-size: 1.2em;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
 }
 
 @media (min-height:  500px) {
@@ -39,9 +48,6 @@
     margin-top: -250px;
   }
 }
-
-
-
 
 
 .track-selector-list{

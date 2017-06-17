@@ -1,17 +1,12 @@
 <div class="mobile-overlay-container mobile-track-selector-container">
 
-  <div class="mobile-episode-selector-season-tabs">
-    <div class="mobile-episode-selector-season-tab">
-      <span>{{'VIDEO.SUBTITLES' | translate}}</span>
-    </div>
-  </div>
+  <h2>{{'VIDEO.SUBTITLES' | translate}}</h2>
+  <ul class="track-selector-list">
+    <li class="track-selector-item" ng-class="{'active': track.id == selectedSubtitleId}"
+        ng-repeat="track in options.subtitles" ng-click="selectSubtitle(track)">
+      {{track.subtitleLabel}}
 
-    <ul class="track-selector-list">
-      <li class="track-selector-item" ng-class="{'active': track.id == selectedSubtitleId}"
-          ng-repeat="track in options.subtitles" ng-click="selectSubtitle(track)">
-        {{track.subtitleLabel}}
-
-        <i ng-if="track.id == selectedSubtitleId" class="ion-checkmark"></i>
-      </li>
-    </ul>
+      <i ng-if="track.id == selectedSubtitleId" class="ion-checkmark"></i>
+    </li>
+  </ul>
 </div>
