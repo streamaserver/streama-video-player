@@ -1,10 +1,7 @@
 <div class="player-wrapper">
   <div class="video-wrapper-inner">
-    <div class="spinner" ng-show="loading">
-      <div class="bounce1"></div>
-      <div class="bounce2"></div>
-      <div class="bounce3"></div>
-    </div>
+
+    <i class="spinner ion-load-c" ng-if="loading"></i>
 
     <i ng-if="!playing && canplay" class="play-button ion-ios-play" ng-click="$event.stopPropagation();togglePlay()"></i>
 
