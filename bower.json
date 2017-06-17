@@ -26,5 +26,8 @@
     "normalize-scss": "^3.0.3",
     "bootstrap": "^3.3.7",
     "streama-i18n": "*"
+  },
+  "resolutions": {
+    "jquery": "^3.1.1"
   }
 }
