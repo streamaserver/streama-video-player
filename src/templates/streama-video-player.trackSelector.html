@@ -1,0 +1,14 @@
+<div class="mobile-overlay-container mobile-track-selector-container">
+
+  <div class="mobile-episode-selector-season-tabs">
+    <div class="mobile-episode-selector-season-tab">
+      <span>{{'VIDEO.SUBTITLES' | translate}}</span>
+    </div>
+  </div>
+
+    <ul>
+      <li ng-repeat="track in options.subtitles">
+        {{track.subtitleLabel}}
+      </li>
+    </ul>
+</div>

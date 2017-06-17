@@ -46,6 +46,12 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				$scope.loading = true;
 				$scope.initialPlay = false;
 
+
+				$scope.mobileOverlayBox = {
+					isVisble: false,
+					type: ''
+				};
+
 				$scope.verticalSlider1 = {
 					value: 5,
 					options: {
@@ -194,8 +200,9 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				function hideMobileControls() {
 					$scope.isMobileControlsVisible = false;
 				}
-				function toggleMobileOverlayBox() {
-					$scope.isMobileOverlayBoxVisible = !$scope.isMobileOverlayBoxVisible;
+				function toggleMobileOverlayBox(type) {
+					$scope.mobileOverlayBox.isVisble = !$scope.mobileOverlayBox.isVisble;
+					$scope.mobileOverlayBox.type = type;
 				}
 
 				function toggleFullScreen() {

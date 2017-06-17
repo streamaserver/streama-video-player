@@ -119,11 +119,11 @@
           {{options.videoMetaTitle}}
         </div>
 
-        <div class="player-controls-box player-control-button" ng-click="$event.stopPropagation(); toggleMobileOverlayBox();">
+        <div class="player-controls-box player-control-button" ng-click="$event.stopPropagation(); toggleMobileOverlayBox('track');">
           <i class="ion-android-textsms"></i>
         </div>
 
-        <div class="player-controls-box player-control-button" ng-click="$event.stopPropagation(); toggleMobileOverlayBox()">
+        <div class="player-controls-box player-control-button" ng-click="$event.stopPropagation(); toggleMobileOverlayBox('episode')">
           <i class="ion-ios-browsers"></i>
         </div>
 
@@ -144,10 +144,10 @@
       </div>
     </div>
 
-    <div class="player-controls-mobile-overlay-box" ng-show="isMobileOverlayBoxVisible">
+    <div class="player-controls-mobile-overlay-box" ng-if="mobileOverlayBox.isVisble">
       <i class="ion-close player-controls-mobile-overlay-box-close" ng-click="toggleMobileOverlayBox()"></i>
 
-      <div ng-include="'streama-video-player.episodeSelector.html'"></div>
+      <div ng-include="'streama-video-player.' + mobileOverlayBox.type + 'Selector.html'"></div>
     </div>
 
     <video ng-if="isInitialized" id="video" ng-src="{{options.videoSrc}}" type="{{options.videoType}}" ng-click="clickVideo()">

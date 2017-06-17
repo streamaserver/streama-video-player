@@ -3905,12 +3905,13 @@ body.mdx-active #mdx-control-view {
     text-align: center;
     z-index: 999; }
 
-.mobile-episode-selector-container {
+.mobile-overlay-container {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  padding-top: 2.5em;
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -3920,12 +3921,11 @@ body.mdx-active #mdx-control-view {
   flex-direction: column; }
 
 @media (min-height: 500px) {
-  .mobile-episode-selector-container {
+  .mobile-overlay-container {
     max-height: 500px;
     top: 50%;
     margin-top: -250px; } }
 .mobile-episode-selector-season-tabs {
-  margin-top: 2.5em;
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
