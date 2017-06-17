@@ -25,7 +25,8 @@
     "angularjs-slider": "^6.0.2",
     "normalize-scss": "^3.0.3",
     "bootstrap": "^3.3.7",
-    "streama-i18n": "*"
+    "streama-i18n": "*",
+    "lodash": "^4.17.4"
   },
   "resolutions": {
     "jquery": "^3.1.1"
