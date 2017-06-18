@@ -1,4 +1,4 @@
-angular.module('streama.videoPlayer', ['LocalStorageModule', 'rzModule', 'streama.translations']);
+angular.module('streama.videoPlayer', ['LocalStorageModule', 'rzModule', 'streama.translations', 'ngSanitize']);
 
 
 /**
