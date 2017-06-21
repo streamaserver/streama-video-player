@@ -58,10 +58,12 @@ video.subtitle-size-sm::cue {
   .player-controls-box{
     @include flex(none);
     padding: .8em;
+    text-align: center;
   }
 
   .rzslider{
     margin-top: 15px;
+    margin-left: 8px;
 
     .rz-bar:not(.rz-selection){
       background: rgba(216, 224, 243, 0.25);

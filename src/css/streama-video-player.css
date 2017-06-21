@@ -3889,9 +3889,11 @@ video.subtitle-size-sm::cue {
     -webkit-flex: none;
     -ms-flex: none;
     flex: none;
-    padding: .8em; }
+    padding: .8em;
+    text-align: center; }
   .player-controls-mobile .rzslider {
-    margin-top: 15px; }
+    margin-top: 15px;
+    margin-left: 8px; }
     .player-controls-mobile .rzslider .rz-bar:not(.rz-selection) {
       background: rgba(216, 224, 243, 0.25); }
   .player-controls-mobile .player-controls-stretch {
