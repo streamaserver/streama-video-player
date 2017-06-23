@@ -2,6 +2,8 @@
 Extracted streama video player
 
 
+
+
 # Usage
 ```html
 	  <script src="../bower_components/angular/angular.js"></script>
