@@ -47,9 +47,21 @@ angular.module('streama.videoPlayer').factory('streamaVideoPlayerService', [
 			};
 		}
 
+		function hasMissingFileError(videoOptions) {
+			if(!videoOptions.videoSrc){
+				console.error('Streama-Video-Player did not find options.src. exiting with Error FILE_MISSING');
+				videoOptions.onError('FILE_MISSING');
+				return true
+			}
+		}
 
 		function initOptions(options) {
 			options = options || {};
+			var hasError = hasMissingFileError(options);
+			if(hasError){
+				return;
+			}
+
 			if(!options.selectedEpisodes && options.showEpisodeBrowser && options.currentEpisode && options.episodeList){
 				options.selectedEpisodes = options.episodeList[options.currentEpisode.season];
 			}
