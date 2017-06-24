@@ -1,6 +1,6 @@
 
 
-# streama-video-player
+# The Streama Video-Player
 A standalone version of the new video player used in the Streama project and the Streama mobile app.
 
 # Table of contents
