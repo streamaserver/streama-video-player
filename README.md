@@ -20,6 +20,7 @@ This command installs the streama-video-player as well as all dependencies
 ```html
     <!-- LOAD ALL JS DEPENDENCIES -->
     <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-translate/angular-translate.js"></script>
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/jquery-mousewheel/jquery.mousewheel.js"></script>
@@ -29,8 +30,8 @@ This command installs the streama-video-player as well as all dependencies
     <script src="bower_components/streama-i18n/dist/streama-i18n.min.js"></script>
     
     <!-- LOAD ALL CSS DEPENDENCIES -->
-    <link rel="stylesheet" href="../bower_components/Ionicons/css/ionicons.css">
-    <link rel="stylesheet" href="../bower_components/angularjs-slider/dist/rzslider.css">
+    <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.css">
+    <link rel="stylesheet" href="bower_components/angularjs-slider/dist/rzslider.css">
 ```
 
 ### Load Streama-video-player
@@ -46,11 +47,11 @@ This command installs the streama-video-player as well as all dependencies
 ### Directive usage
 ```html
 <script>
-    angular.module('yourModule', ['streama.videoPlayer']).run(function($rootScope){
-        $rootScope.videoOptions = {
-            videoSrc: 'http://techslides.com/demos/sample-videos/small.mp4'
-        }
-    });
+	angular.module('yourModule', ['streama.videoPlayer']).run(function($rootScope){
+		$rootScope.videoOptions = {
+			videoSrc: 'http://techslides.com/demos/sample-videos/small.mp4'
+		}
+	});
 </script>
 
 
@@ -105,7 +106,7 @@ $scope.videoOptions = {
 				still_path: 'https://image.tmdb.org/t/p/original/ydlY3iPfeOAvu8gVqrxPoMvzNCn.jpg', 
 				overview: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.', 
 				videoDuration: 1320  //in seconds
-			},
+			}
 		// and more episodes...
     ]
   },
@@ -122,7 +123,7 @@ $scope.videoOptions = {
 			"subtitleLabel": "Deutsch", 
 			"subtitleSrcLang": "de", 
 			"contentType": "application/x-subrip"
-		},
+		}
 		// and more subtitles
   ],
   currentSubtitle: 1562  // unique subtitle ID matching one of the ones in the subtitles list
