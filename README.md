@@ -44,12 +44,19 @@ This command installs the streama-video-player as well as all dependencies
 ```
 
 ### Directive usage
-```javascript
-angular.module('yourModule', ['streama.videoPlayer'])
-``` 
-
 ```html
-<streama-video-player options="videoOptions"></streama-video-player>
+<script>
+    angular.module('yourModule', ['streama.videoPlayer']).run(function($rootScope){
+        $rootScope.videoOptions = {
+            videoSrc: 'http://techslides.com/demos/sample-videos/small.mp4'
+        }
+    });
+</script>
+
+
+<div ng-app="yourModule">
+    <streama-video-player options="videoOptions"></streama-video-player>
+</div>
 ``` 
 
 # Options
