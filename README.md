@@ -133,3 +133,8 @@ $scope.videoOptions = {
 
 ```
 
+
+# FAQs
+- Make sure your http to the video has Access-Control-Allow-Origin enabled
+- Make sure the videos you use are HTML5 compatible
+
