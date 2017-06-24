@@ -35,6 +35,10 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 
       link: function ($scope, $elem, $attrs) {
 				$scope.options = streamaVideoPlayerService.initOptions($scope.options);
+				if(!$scope.options){
+					console.error('There was an error initializing the player. Please refer to the error log.');
+					return;
+				}
 				var video;
         var controlDisplayTimeout;
         var overlayTimeout;
@@ -118,11 +122,11 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 						var $video = $elem.find('video');
 						$video.bind("contextmenu",function(){return false;});
 						video = $video[0];
-						video.oncanplay = oncanplay;
-						video.onwaiting = onwaiting;
-						video.onplaying = onplaying;
-						video.onerror = onerror;
-						video.ontimeupdate = ontimeupdate;
+						video.oncanplay = onVideoCanPlay;
+						video.onwaiting = onVideoWaiting;
+						video.onplaying = onVideoPlaying;
+						video.onerror = onVideoError;
+						video.ontimeupdate = onVideoTimeupdate;
 						video.addEventListener('ended', onVideoEnded);
 						selectSubtitle(getCurrentSubtitleTrack());
 					});
@@ -354,7 +358,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					$elem.find('video').remove().length = 0;
 				}
 
-				function ontimeupdate(event){
+				function onVideoTimeupdate(event){
 					if(!isAutoScrubberUpdate){
 						return;
 					}
@@ -379,20 +383,21 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					}
 				}
 
-				function onerror(){
+				function onVideoError(){
 					if(!video.duration && !$scope.initialPlay){
+						console.error('Video Playback Error');
 						$scope.options.onError();
 					}
 				}
 
-				function onplaying() {
+				function onVideoPlaying() {
 					$scope.loading = false;
 				}
 
-				function oncanplay() {
+				function onVideoCanPlay() {
 					if(!$scope.initialPlay){
 						$scope.canplay = true;
-						console.log('%c oncanplay', 'color: deeppink; font-weight: bold; text-shadow: 0 0 5px deeppink;');
+						console.log('%c onVideoCanPlay', 'color: deeppink; font-weight: bold; text-shadow: 0 0 5px deeppink;');
 						$scope.loading = false;
 						if(!$scope.isMobile){
 							$scope.play();
@@ -411,7 +416,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					}
 				}
 
-				function onwaiting() {
+				function onVideoWaiting() {
 					$scope.loading = true;
 				}
 
@@ -610,10 +615,7 @@ angular.module('streama.videoPlayer').factory('streamaVideoPlayerService', [
 
 		function initOptions(options) {
 			options = options || {};
-			var hasError = hasMissingFileError(options);
-			if(hasError){
-				return;
-			}
+
 
 			if(!options.selectedEpisodes && options.showEpisodeBrowser && options.currentEpisode && options.episodeList){
 				options.selectedEpisodes = options.episodeList[options.currentEpisode.season];
@@ -624,6 +626,10 @@ angular.module('streama.videoPlayer').factory('streamaVideoPlayerService', [
 
 			options = angular.merge(getDefaultOptions(), options);
 
+			var hasError = hasMissingFileError(options);
+			if(hasError){
+				return;
+			}
 
 			if(options.isMobile == undefined){
 				if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent)
