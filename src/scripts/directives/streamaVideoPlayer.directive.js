@@ -96,11 +96,11 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 						var $video = $elem.find('video');
 						$video.bind("contextmenu",function(){return false;});
 						video = $video[0];
-						video.oncanplay = oncanplay;
-						video.onwaiting = onwaiting;
-						video.onplaying = onplaying;
-						video.onerror = onerror;
-						video.ontimeupdate = ontimeupdate;
+						video.oncanplay = onVideoCanPlay;
+						video.onwaiting = onVideoWaiting;
+						video.onplaying = onVideoPlaying;
+						video.onerror = onVideoError;
+						video.ontimeupdate = onVideoTimeupdate;
 						video.addEventListener('ended', onVideoEnded);
 						selectSubtitle(getCurrentSubtitleTrack());
 					});
@@ -332,7 +332,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					$elem.find('video').remove().length = 0;
 				}
 
-				function ontimeupdate(event){
+				function onVideoTimeupdate(event){
 					if(!isAutoScrubberUpdate){
 						return;
 					}
@@ -357,20 +357,21 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					}
 				}
 
-				function onerror(){
+				function onVideoError(){
 					if(!video.duration && !$scope.initialPlay){
+						console.error('Video Playback Error');
 						$scope.options.onError();
 					}
 				}
 
-				function onplaying() {
+				function onVideoPlaying() {
 					$scope.loading = false;
 				}
 
-				function oncanplay() {
+				function onVideoCanPlay() {
 					if(!$scope.initialPlay){
 						$scope.canplay = true;
-						console.log('%c oncanplay', 'color: deeppink; font-weight: bold; text-shadow: 0 0 5px deeppink;');
+						console.log('%c onVideoCanPlay', 'color: deeppink; font-weight: bold; text-shadow: 0 0 5px deeppink;');
 						$scope.loading = false;
 						if(!$scope.isMobile){
 							$scope.play();
@@ -389,7 +390,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					}
 				}
 
-				function onwaiting() {
+				function onVideoWaiting() {
 					$scope.loading = true;
 				}
 
