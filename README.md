@@ -4,7 +4,8 @@
 A standalone version of the new video player used in the Streama project and the Streama mobile app.
 
 # Table of contents
-- [The player UI](#the-player-ui) 
+- [The player UI](#the-player-ui)
+- [Installation (using bower)](#installation-using-bower)
 - [Usage](#usage)
 - [Options](#options)
 - [FAQs](#faqs)
