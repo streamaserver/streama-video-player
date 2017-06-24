@@ -1,7 +1,15 @@
+
+
 # streama-video-player
 A standalone version of the new video player used in the Streama project and the Streama mobile app.
 
-### The player UI 
+# Table of contents
+- The player UI 
+- Usage
+- Options
+- FAQs
+
+# The player UI 
 ![UIExample1](example/Screen%20Shot%202017-06-23%20at%2023.03.49.png)
 
 ### Subtitle & Subtitle Size UI 
