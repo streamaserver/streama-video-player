@@ -57,10 +57,7 @@ angular.module('streama.videoPlayer').factory('streamaVideoPlayerService', [
 
 		function initOptions(options) {
 			options = options || {};
-			var hasError = hasMissingFileError(options);
-			if(hasError){
-				return;
-			}
+
 
 			if(!options.selectedEpisodes && options.showEpisodeBrowser && options.currentEpisode && options.episodeList){
 				options.selectedEpisodes = options.episodeList[options.currentEpisode.season];
@@ -71,6 +68,10 @@ angular.module('streama.videoPlayer').factory('streamaVideoPlayerService', [
 
 			options = angular.merge(getDefaultOptions(), options);
 
+			var hasError = hasMissingFileError(options);
+			if(hasError){
+				return;
+			}
 
 			if(options.isMobile == undefined){
 				if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent)

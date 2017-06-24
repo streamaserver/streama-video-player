@@ -13,6 +13,10 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 
       link: function ($scope, $elem, $attrs) {
 				$scope.options = streamaVideoPlayerService.initOptions($scope.options);
+				if(!$scope.options){
+					console.error('There was an error initializing the player. Please refer to the error log.');
+					return;
+				}
 				var video;
         var controlDisplayTimeout;
         var overlayTimeout;
