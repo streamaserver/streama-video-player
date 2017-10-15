@@ -4061,6 +4061,6 @@ video.subtitle-size-sm::cue {
   font-size: 1em;
   margin-top: 0;
   line-height: 1.4em;
-  overflow: scroll; }
+  overflow-y: scroll; }
 
 /*# sourceMappingURL=streama-video-player.css.map */
