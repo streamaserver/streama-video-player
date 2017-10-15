@@ -17,7 +17,7 @@
           <span class="episode-number">{{episode.episode_number}}. </span>
           <span class="episode-name" ng-click="visible = !visible">{{episode.name}}</span>
 
-          <span class="episode-duration">{{episode.videoDuration | videoDurationDisplay}}</span>
+          <span ng-if="episode.videoDuration" class="episode-duration">{{episode.videoDuration | videoDurationDisplay}}</span>
         </h3>
         <p class="episode-overview">{{episode.overview.length > 250 ? (episode.overview.substring(0, 250) + '...') : episode.overview}}</p>
       </div>
