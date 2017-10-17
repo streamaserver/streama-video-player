@@ -1,5 +1,6 @@
 <div class="player-wrapper">
-  <div class="video-wrapper-inner">
+  <pre>{{options.videoStillImage}}</pre>
+  <div class="video-wrapper-inner" ng-style="{'background-image': 'url(https://image.tmdb.org/t/p/w1920'+options.videoStillImage+')'}">
 
     <i class="spinner ion-load-c" ng-if="loading"></i>
 

@@ -21,6 +21,7 @@ angular.module('streama.videoPlayer').factory('streamaVideoPlayerService', [
 				videoMetaTitle: '',
 				videoMetaSubtitle: '',
 				videoMetaDescription: '',
+				videoStillImage: '',
 				videoSrc: '',
 				videoType: '',
 				videoTrack: '',

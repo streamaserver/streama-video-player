@@ -30,6 +30,12 @@ streama-video-player{
 
 }
 
+.video-wrapper-inner{
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .player-wrapper{
   color: white;
   font-weight: 300;
