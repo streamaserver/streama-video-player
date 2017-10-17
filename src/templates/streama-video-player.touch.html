@@ -7,7 +7,7 @@
 
     <div class="player-controls-mobile" ng-show="isMobileControlsVisible" ng-click="hideMobileControls()">
       <div class="player-controls-topbar">
-        <div class="player-controls-box player-control-button" ng-click="$event.stopPropagation();">
+        <div class="player-controls-box player-control-button" ng-click="$event.stopPropagation(); closeVideo();">
           <i class="ion-chevron-left"></i>
         </div>
         <div class="player-controls-stretch player-controls-metaTitle">
