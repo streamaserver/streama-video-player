@@ -517,6 +517,45 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
     }
   }]);
 
+
+angular.module('streama.videoPlayer').filter('streamaPadnumber', [function () {
+	return function(input, length) {
+		return pad(input, length);
+	};
+
+
+	function pad(n, width, z) {
+		z = z || '0';
+		n = n + '';
+		return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+	}
+
+}]);
+
+angular.module('streama.videoPlayer').filter('streamaTrustAs', ['$sce', function ($sce) {
+	return function(input, type) {
+		return $sce.trustAs(type, input);
+	};
+
+}]);
+angular.module('streama.videoPlayer').filter('videoDurationDisplay', ['$filter', function($filter) {
+	return function(seconds) {
+		var date =  new Date(1970, 0, 1).setSeconds(seconds);
+		return $filter('date')(date, 'mm') + ' Min.';
+	};
+}]);
+
+angular.module('streama.videoPlayer').filter('streamaVideoTime', ['$filter', function($filter) {
+	return function(seconds) {
+		var date =  new Date(1970, 0, 1).setSeconds(seconds);
+		if(seconds >= 3600){
+			return $filter('date')(date, 'hh:mm:ss');
+		}else{
+			return $filter('date')(date, 'mm:ss');
+		}
+	};
+}]);
+
 'use strict';
 
 angular.module('streama.videoPlayer').factory('streamaVideoPlayerService', [
@@ -676,42 +715,3 @@ angular.module('streama.videoPlayer').factory('streamaVideoPlayerService', [
 		}
 
 	}]);
-
-
-angular.module('streama.videoPlayer').filter('streamaPadnumber', [function () {
-	return function(input, length) {
-		return pad(input, length);
-	};
-
-
-	function pad(n, width, z) {
-		z = z || '0';
-		n = n + '';
-		return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
-	}
-
-}]);
-
-angular.module('streama.videoPlayer').filter('streamaTrustAs', ['$sce', function ($sce) {
-	return function(input, type) {
-		return $sce.trustAs(type, input);
-	};
-
-}]);
-angular.module('streama.videoPlayer').filter('videoDurationDisplay', ['$filter', function($filter) {
-	return function(seconds) {
-		var date =  new Date(1970, 0, 1).setSeconds(seconds);
-		return $filter('date')(date, 'mm') + ' Min.';
-	};
-}]);
-
-angular.module('streama.videoPlayer').filter('streamaVideoTime', ['$filter', function($filter) {
-	return function(seconds) {
-		var date =  new Date(1970, 0, 1).setSeconds(seconds);
-		if(seconds >= 3600){
-			return $filter('date')(date, 'hh:mm:ss');
-		}else{
-			return $filter('date')(date, 'mm:ss');
-		}
-	};
-}]);
