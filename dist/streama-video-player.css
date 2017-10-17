@@ -99,6 +99,11 @@ streama-video-player.nocursor {
   right: 0;
   bottom: 0; }
 
+.video-wrapper-inner {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat; }
+
 .player-wrapper {
   color: white;
   font-weight: 300;
