@@ -19,7 +19,7 @@
           <i class="ion-android-textsms"></i>
         </div>
 
-        <div class="player-controls-box player-control-button" ng-click="$event.stopPropagation(); toggleMobileOverlayBox('episode')">
+        <div ng-if="options.showEpisodeBrowser" class="player-controls-box player-control-button" ng-click="$event.stopPropagation(); toggleMobileOverlayBox('episode')">
           <i class="ion-ios-browsers"></i>
         </div>
         <div ng-if="options.hasNextEpisode" class="player-controls-box player-control-button" ng-click="$event.stopPropagation(); next();">
