@@ -217,6 +217,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 						$scope.fullScreen();
 					}
 
+					onDirectiveDestroy();
 					$scope.options.onClose();
 				}
 
