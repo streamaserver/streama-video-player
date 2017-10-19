@@ -231,6 +231,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				function toggleMobileOverlayBox(type) {
 					$scope.mobileOverlayBox.isVisble = !$scope.mobileOverlayBox.isVisble;
 					$scope.mobileOverlayBox.type = type;
+					togglePlay();
 				}
 
 				function changeSubtitleSize(subtitleSize) {
