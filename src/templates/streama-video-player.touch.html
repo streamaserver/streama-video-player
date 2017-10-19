@@ -1,6 +1,6 @@
 <div class="player-wrapper">
   <pre>{{options.videoStillImage}}</pre>
-  <div class="video-wrapper-inner" ng-style="{'background-image': 'url(https://image.tmdb.org/t/p/w1920'+options.videoStillImage+')'}">
+  <div class="video-wrapper-inner" ng-style="{'background-image': 'url('+options.videoStillImage+')'}">
 
     <i class="spinner ion-load-c" ng-if="loading"></i>
 
@@ -21,6 +21,9 @@
 
         <div class="player-controls-box player-control-button" ng-click="$event.stopPropagation(); toggleMobileOverlayBox('episode')">
           <i class="ion-ios-browsers"></i>
+        </div>
+        <div class="player-controls-box player-control-button" ng-click="$event.stopPropagation(); next();">
+          <i class="ion-chevron-right"></i>
         </div>
 
       </div>
