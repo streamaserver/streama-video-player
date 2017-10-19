@@ -4,16 +4,16 @@
     <div class="col-xs-6">
       <h2>{{'VIDEO.SUBTITLES' | translate}}</h2>
       <ul class="track-selector-list">
+        <li class="track-selector-item" ng-class="{'active': !selectedSubtitleId}" ng-click="selectSubtitle()">
+          {{'VIDEO.NO_SUBTITLE' | translate}} &nbsp;
+
+          <i ng-if="!selectedSubtitleId" class="ion-checkmark"></i>
+        </li>
         <li class="track-selector-item" ng-class="{'active': track.id == selectedSubtitleId}"
             ng-repeat="track in options.subtitles" ng-click="selectSubtitle(track)">
           {{track.subtitleLabel}}
 
           <i ng-if="track.id == selectedSubtitleId" class="ion-checkmark"></i>
-        </li>
-        <li class="track-selector-item" ng-class="{'active': !selectedSubtitleId}" ng-click="selectSubtitle()">
-          {{'VIDEO.NO_SUBTITLE' | translate}}
-
-          <i ng-if="!selectedSubtitleId" class="ion-checkmark"></i>
         </li>
       </ul>
     </div>
