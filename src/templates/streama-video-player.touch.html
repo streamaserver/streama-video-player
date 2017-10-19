@@ -22,7 +22,7 @@
         <div class="player-controls-box player-control-button" ng-click="$event.stopPropagation(); toggleMobileOverlayBox('episode')">
           <i class="ion-ios-browsers"></i>
         </div>
-        <div class="player-controls-box player-control-button" ng-click="$event.stopPropagation(); next();">
+        <div ng-if="options.hasNextEpisode" class="player-controls-box player-control-button" ng-click="$event.stopPropagation(); next();">
           <i class="ion-chevron-right"></i>
         </div>
 
@@ -51,8 +51,8 @@
 
     <video ng-if="isInitialized" id="video" ng-src="{{options.videoSrc | streamaTrustAs:'resourceUrl'}}" type="{{options.videoType}}"
            ng-click="clickVideo()" class="subtitle-size-{{options.subtitleSize}}">
-      <track ng-repeat="subtitle in options.subtitles" ng-src="{{subtitle.src}}" kind="subtitles" id="subtitle-{{subtitle.id}}"
-             srclang="{{subtitle.subtitleSrcLang}}" label="{{subtitle.subtitleLabel}}" src="{{subtitle.src}}">
+      <track ng-repeat="subtitle in options.subtitles" ng-src="{{subtitle.src  | streamaTrustAs:'resourceUrl'}}" kind="subtitles" id="subtitle-{{subtitle.id}}"
+             srclang="{{subtitle.subtitleSrcLang}}" label="{{subtitle.subtitleLabel}}" src="{{subtitle.src  | streamaTrustAs:'resourceUrl'}}">
     </video>
 
   </div>
