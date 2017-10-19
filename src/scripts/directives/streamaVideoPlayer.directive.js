@@ -45,7 +45,6 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				$scope.clickVideo = clickVideo;
 				$scope.fullScreen = toggleFullScreen;
 				$scope.changeSubtitleSize = changeSubtitleSize;
-				$scope.currentTime = 0;
 				$scope.next = $scope.options.onNext;
 				$scope.isMobileControlsVisible = true;
 				$scope.isInitialized = false;
@@ -162,6 +161,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 
 				function generateScrupperOoptions(videoDuration) {
 					$scope.scrubber = {
+						model: 0,
 						options: {
 							floor: 0,
 							ceil: videoDuration,
@@ -179,7 +179,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 							// },
 							onEnd: function(sliderId, modelValue, highValue, pointerType) {
 								video.currentTime = modelValue;
-								$scope.currentTime = modelValue;
+								$scope.scrubber.model = modelValue;
 								isAutoScrubberUpdate = true;
 								// $scope.options.onTimeChange(slider, $scope.videoDuration);
 							}
@@ -313,7 +313,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					});
 					$scope.$on('triggerVideoTimeChange', function (e, data) {
 						video.currentTime = data.currentPlayerTime;
-						$scope.currentTime = data.currentPlayerTime;
+						$scope.scrubber.model = data.currentPlayerTime;
 					});
 				}
 
@@ -342,7 +342,8 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					if(!isAutoScrubberUpdate){
 						return;
 					}
-					$scope.currentTime = video.currentTime;
+					$scope.scrubber.model = video.currentTime;
+					$scope.$broadcast('rzSliderForceRender');
 					$scope.$apply();
 					if(skipIntro)
 					{
@@ -388,7 +389,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 						generateScrupperOoptions(video.duration);
 
 						video.currentTime = $scope.options.customStartingTime || 0;
-						$scope.currentTime = video.currentTime || 0;
+						$scope.scrubber.model = video.currentTime || 0;
 						$scope.initialPlay = true;
 						if($scope.options.videoTrack){
 							video.textTracks[0].mode = "hidden";
