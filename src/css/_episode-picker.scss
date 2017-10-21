@@ -2,14 +2,19 @@
 .mobile-episode-selector-season-tabs{
   @include flexbox;
   padding: 0 1em;
+  overflow-x: auto;
 }
 
 .mobile-episode-selector-season-tab{
-  padding: 4px 4px;
+  padding: 4px 16px;
   font-size: 1.2em;
-  margin-right: 22px;
   font-weight: 600;
   text-transform: uppercase;
+  flex-shrink: 0;
+  opacity: 0.5;
+  &.active{
+    opacity: 1;
+  }
 }
 
 .mobile-episode-selector-outer{

@@ -1,6 +1,7 @@
 <div class="mobile-overlay-container mobile-episode-selector-container">
   <div class="mobile-episode-selector-season-tabs">
-    <div class="mobile-episode-selector-season-tab" ng-repeat="(season, episodes) in options.episodeList">
+    <div class="mobile-episode-selector-season-tab" ng-class="{'active': season == options.selectedEpisodes[0].season_number}"
+         ng-repeat="(season, episodes) in options.episodeList" ng-click="toggleSelectEpisodes(episodes)">
       <span>{{'VIDEO.SEASON' | translate}} {{season}}</span>
     </div>
   </div>
