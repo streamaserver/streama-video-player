@@ -41,6 +41,7 @@ angular.module('streama.videoPlayer').factory('streamaVideoPlayerService', [
 				onPause: angular.noop,
 				onClose: angular.noop,
 				onNext: angular.noop,
+				onScrub: angular.noop,
 				onEpisodeChange: angular.noop,
 				onVideoClick: angular.noop,
 				onSubtitleSelect: angular.noop,

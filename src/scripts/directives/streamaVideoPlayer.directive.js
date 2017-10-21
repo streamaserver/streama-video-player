@@ -182,6 +182,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 								video.currentTime = modelValue;
 								$scope.scrubber.model = modelValue;
 								isAutoScrubberUpdate = true;
+								$scope.options.onScrub(video);
 								// $scope.options.onTimeChange(slider, $scope.videoDuration);
 							}
 						}
@@ -344,7 +345,6 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 						return;
 					}
 					$scope.scrubber.model = video.currentTime;
-					$scope.$broadcast('rzSliderForceRender');
 					$scope.$apply();
 					if(skipIntro)
 					{
