@@ -1,6 +1,6 @@
 <div class="player-wrapper">
   <pre>{{options.videoStillImage}}</pre>
-  <div class="video-wrapper-inner" ng-style="{'background-image': 'url('+options.videoStillImage+')'}">
+  <div class="video-wrapper-inner" ng-style="getBackgroundStyle()">
 
     <i class="spinner ion-load-c" ng-if="loading"></i>
 
@@ -49,7 +49,7 @@
       <div ng-include="'streama-video-player.' + mobileOverlayBox.type + 'Selector.html'"></div>
     </div>
 
-    <video ng-if="isInitialized" id="video" ng-src="{{options.videoSrc | streamaTrustAs:'resourceUrl'}}" type="{{options.videoType}}"
+    <video ng-show="initialPlay" ng-if="isInitialized" id="video" ng-src="{{options.videoSrc | streamaTrustAs:'resourceUrl'}}" type="{{options.videoType}}"
            ng-click="clickVideo()" class="subtitle-size-{{options.subtitleSize}}">
       <track ng-repeat="subtitle in options.subtitles" ng-src="{{subtitle.src  | streamaTrustAs:'resourceUrl'}}" kind="subtitles" id="subtitle-{{subtitle.id}}"
              srclang="{{subtitle.subtitleSrcLang}}" label="{{subtitle.subtitleLabel}}" src="{{subtitle.src  | streamaTrustAs:'resourceUrl'}}">

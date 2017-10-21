@@ -29,6 +29,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				var isAutoScrubberUpdate = true;
 
 
+				$scope.getBackgroundStyle = getBackgroundStyle;
 				$scope.changeEpisode = changeEpisode;
 				$scope.selectSubtitle = selectSubtitle;
 				$scope.showControls = showControls;
@@ -490,6 +491,14 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 						}
 						$scope.showControls();
 					});
+				}
+
+				function getBackgroundStyle() {
+					if(!$scope.initialPlay){
+						return {'background-image': 'url('+$scope.options.videoStillImage+')'};
+					}else{
+						return {};
+					}
 				}
 
 
