@@ -3999,14 +3999,18 @@ video.subtitle-size-sm::cue {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  padding: 0 1em; }
+  padding: 0 1em;
+  overflow-x: auto; }
 
 .mobile-episode-selector-season-tab {
-  padding: 4px 4px;
+  padding: 4px 16px;
   font-size: 1.2em;
-  margin-right: 22px;
   font-weight: 600;
-  text-transform: uppercase; }
+  text-transform: uppercase;
+  flex-shrink: 0;
+  opacity: 0.5; }
+  .mobile-episode-selector-season-tab.active {
+    opacity: 1; }
 
 .mobile-episode-selector-outer {
   overflow: scroll;
@@ -4039,6 +4043,7 @@ video.subtitle-size-sm::cue {
   display: flex;
   flex-direction: column; }
   .mobile-episode-box .image-wrapper {
+    height: 159px;
     position: relative; }
   .mobile-episode-box .play-button {
     font-size: 3em; }
