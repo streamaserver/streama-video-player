@@ -349,7 +349,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					if(!isAutoScrubberUpdate){
 						return;
 					}
-					$scope.scrubber.model = video.currentTime;
+					_.set($scope.scrubber, 'model', video.currentTime);
 					$scope.$apply();
 					if(skipIntro)
 					{
