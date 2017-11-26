@@ -2,7 +2,9 @@
   <pre>{{options.videoStillImage}}</pre>
   <div class="video-wrapper-inner" ng-style="getBackgroundStyle()" ng-click="toggleControls()">
 
-    <i class="spinner ion-load-c" ng-if="loading"></i>
+    <div ng-if="loading">
+      <i class="spinner ion-load-c" ></i>
+    </div>
 
     <i ng-if="!playing && canplay" class="play-button ion-ios-play" ng-click="$event.stopPropagation();togglePlay()"></i>
 
