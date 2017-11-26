@@ -41,7 +41,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				$scope.togglePlay = togglePlay;
 				$scope.pause = pause;
 				$scope.closeVideo = closeVideo;
-				$scope.hideMobileControls = hideMobileControls;
+				$scope.toggleControls = toggleControls;
 				$scope.toggleMobileOverlayBox = toggleMobileOverlayBox;
 				$scope.clickVideo = clickVideo;
 				$scope.fullScreen = toggleFullScreen;
@@ -223,13 +223,14 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					$scope.options.onClose();
 				}
 
+				function toggleControls(){
+					$scope.isMobileControlsVisible = !$scope.isMobileControlsVisible;
+				}
+
 				function clickVideo() {
-					$scope.isMobileControlsVisible = true;
 					$scope.options.onVideoClick();
 				}
-				function hideMobileControls() {
-					$scope.isMobileControlsVisible = false;
-				}
+
 				function toggleMobileOverlayBox(type) {
 					$scope.mobileOverlayBox.isVisble = !$scope.mobileOverlayBox.isVisble;
 					$scope.mobileOverlayBox.type = type;

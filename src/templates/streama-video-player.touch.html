@@ -1,12 +1,12 @@
 <div class="player-wrapper">
   <pre>{{options.videoStillImage}}</pre>
-  <div class="video-wrapper-inner" ng-style="getBackgroundStyle()">
+  <div class="video-wrapper-inner" ng-style="getBackgroundStyle()" ng-click="toggleControls()">
 
     <i class="spinner ion-load-c" ng-if="loading"></i>
 
     <i ng-if="!playing && canplay" class="play-button ion-ios-play" ng-click="$event.stopPropagation();togglePlay()"></i>
 
-    <div class="player-controls-mobile" ng-show="isMobileControlsVisible" ng-click="hideMobileControls()">
+    <div class="player-controls-mobile" ng-show="isMobileControlsVisible" >
       <div class="player-controls-topbar">
         <div class="player-controls-box player-control-button" ng-click="$event.stopPropagation(); closeVideo();">
           <i class="ion-chevron-left"></i>
