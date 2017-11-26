@@ -386,11 +386,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 						$scope.canplay = true;
 						console.log('%c onVideoCanPlay', 'color: deeppink; font-weight: bold; text-shadow: 0 0 5px deeppink;');
 						$scope.loading = false;
-						if(!$scope.isMobile){
-							$scope.play();
-						}else{
-							$scope.pause();
-						}
+						$scope.play();
 						$scope.videoDuration = video.duration;
 						generateScrupperOoptions(video.duration);
 
