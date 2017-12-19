@@ -20,45 +20,6 @@ $templateCache.put('streama-video-player.episodeSelector.html','<div class="mobi
 $templateCache.put('streama-video-player.html','<div>\n  <pre>{{playerTemplate}}</pre>\n  <div ng-if="playerTemplate" ng-include="playerTemplate"></div>\n\n</div>\n\n');
 $templateCache.put('streama-video-player.touch.html','<div class="player-wrapper">\n  <pre>{{options.videoStillImage}}</pre>\n  <div class="video-wrapper-inner" ng-style="getBackgroundStyle()" ng-click="toggleControls()">\n\n    <div ng-if="loading">\n      <i class="spinner ion-load-c" ></i>\n    </div>\n\n    <i ng-if="!playing && canplay" class="play-button ion-ios-play" ng-click="$event.stopPropagation();togglePlay()"></i>\n\n    <div class="player-controls-mobile" ng-show="isMobileControlsVisible" >\n      <div class="player-controls-topbar">\n        <div class="player-controls-box player-control-button" ng-click="$event.stopPropagation(); closeVideo();">\n          <i class="ion-chevron-left"></i>\n        </div>\n        <div class="player-controls-stretch player-controls-metaTitle">\n          {{options.videoMetaTitle}}\n        </div>\n\n        <div class="player-controls-box player-control-button" ng-click="$event.stopPropagation(); toggleMobileOverlayBox(\'track\');">\n          <i class="ion-android-textsms"></i>\n        </div>\n\n        <div ng-if="options.showEpisodeBrowser" class="player-controls-box player-control-button" ng-click="$event.stopPropagation(); toggleMobileOverlayBox(\'episode\')">\n          <i class="ion-ios-browsers"></i>\n        </div>\n        <div ng-if="options.hasNextEpisode" class="player-controls-box player-control-button" ng-click="$event.stopPropagation(); next();">\n          <i class="ion-chevron-right"></i>\n        </div>\n\n      </div>\n      <div class="player-controls-bottombar" ng-if="initialPlay">\n        <div class="player-controls-box player-control-button" ng-click="$event.stopPropagation();togglePlay()">\n          <i class="player-play-pause play ion-play" ng-show="!playing"></i>\n          <i class="player-play-pause play ion-pause" ng-show="playing"></i>\n        </div>\n        <div class="player-controls-stretch">\n          <rzslider ng-if="scrubber.options" rz-slider-model="scrubber.model" rz-slider-options="scrubber.options"></rzslider>\n        </div>\n        <div class="player-controls-box">\n          <div class="time-display">\n            {{videoDuration | streamaVideoTime}}\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <div class="player-controls-mobile-overlay-box" ng-if="mobileOverlayBox.isVisble">\n      <i class="ion-close player-controls-mobile-overlay-box-close" ng-click="toggleMobileOverlayBox()"></i>\n\n      <div ng-include="\'streama-video-player.\' + mobileOverlayBox.type + \'Selector.html\'"></div>\n    </div>\n\n    <video ng-show="initialPlay" ng-if="isInitialized" id="video" ng-src="{{options.videoSrc | streamaTrustAs:\'resourceUrl\'}}" type="{{options.videoType}}"\n           ng-click="clickVideo()" class="subtitle-size-{{options.subtitleSize}}">\n      <track ng-repeat="subtitle in options.subtitles" ng-src="{{subtitle.src  | streamaTrustAs:\'resourceUrl\'}}" kind="subtitles" id="subtitle-{{subtitle.id}}"\n             srclang="{{subtitle.subtitleSrcLang}}" label="{{subtitle.subtitleLabel}}" src="{{subtitle.src  | streamaTrustAs:\'resourceUrl\'}}">\n    </video>\n\n  </div>\n</div>\n\n\n');
 $templateCache.put('streama-video-player.trackSelector.html','<div class="mobile-overlay-container mobile-track-selector-container">\n\n  <div class="row">\n    <div class="col-50">\n      <h2>{{\'VIDEO.SUBTITLES\' | translate}}</h2>\n      <ul class="track-selector-list">\n        <li class="track-selector-item" ng-class="{\'active\': !selectedSubtitleId}" ng-click="selectSubtitle()">\n          {{\'VIDEO.NO_SUBTITLE\' | translate}} &nbsp;\n\n          <i ng-if="!selectedSubtitleId" class="ion-checkmark"></i>\n        </li>\n        <li class="track-selector-item" ng-class="{\'active\': track.id == selectedSubtitleId}"\n            ng-repeat="track in options.subtitles" ng-click="selectSubtitle(track)">\n          {{track.subtitleLabel || track.originalFilename}}\n\n          <i ng-if="track.id == selectedSubtitleId" class="ion-checkmark"></i>\n        </li>\n      </ul>\n    </div>\n    <div class="col-50">\n      <h2>{{\'VIDEO.SUBTITLE_SIZE\' | translate}}</h2>\n      <ul class="subtitle-size-picker">\n        <li class="subtitle-size-lg" ng-class="{\'active\': options.subtitleSize == \'lg\'}" ng-click="changeSubtitleSize(\'lg\')">A</li>\n        <li class="subtitle-size-md" ng-class="{\'active\': options.subtitleSize == \'md\'}" ng-click="changeSubtitleSize(\'md\')">A</li>\n        <li class="subtitle-size-sm" ng-class="{\'active\': options.subtitleSize == \'sm\'}" ng-click="changeSubtitleSize(\'sm\')">A</li>\n      </ul>\n    </div>\n  </div>\n\n\n\n</div>');}]);
-
-angular.module('streama.videoPlayer').filter('streamaPadnumber', [function () {
-	return function(input, length) {
-		return pad(input, length);
-	};
-
-
-	function pad(n, width, z) {
-		z = z || '0';
-		n = n + '';
-		return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
-	}
-
-}]);
-
-angular.module('streama.videoPlayer').filter('streamaTrustAs', ['$sce', function ($sce) {
-	return function(input, type) {
-		return $sce.trustAs(type, input);
-	};
-
-}]);
-angular.module('streama.videoPlayer').filter('videoDurationDisplay', ['$filter', function($filter) {
-	return function(seconds) {
-		var date =  new Date(1970, 0, 1).setSeconds(seconds);
-		return $filter('date')(date, 'mm') + ' Min.';
-	};
-}]);
-
-angular.module('streama.videoPlayer').filter('streamaVideoTime', ['$filter', function($filter) {
-	return function(seconds) {
-		var date =  new Date(1970, 0, 1).setSeconds(seconds);
-		if(seconds >= 3600){
-			return $filter('date')(date, 'hh:mm:ss');
-		}else{
-			return $filter('date')(date, 'mm:ss');
-		}
-	};
-}]);
-
 'use strict';
 
 angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
@@ -285,7 +246,9 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				}
 
 				function toggleControls(){
-					$scope.isMobileControlsVisible = !$scope.isMobileControlsVisible;
+					$timeout(function () {
+						$scope.isMobileControlsVisible = !$scope.isMobileControlsVisible;
+					});
 				}
 
 				function clickVideo() {
@@ -568,6 +531,45 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 			}
     }
   }]);
+
+
+angular.module('streama.videoPlayer').filter('streamaPadnumber', [function () {
+	return function(input, length) {
+		return pad(input, length);
+	};
+
+
+	function pad(n, width, z) {
+		z = z || '0';
+		n = n + '';
+		return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+	}
+
+}]);
+
+angular.module('streama.videoPlayer').filter('streamaTrustAs', ['$sce', function ($sce) {
+	return function(input, type) {
+		return $sce.trustAs(type, input);
+	};
+
+}]);
+angular.module('streama.videoPlayer').filter('videoDurationDisplay', ['$filter', function($filter) {
+	return function(seconds) {
+		var date =  new Date(1970, 0, 1).setSeconds(seconds);
+		return $filter('date')(date, 'mm') + ' Min.';
+	};
+}]);
+
+angular.module('streama.videoPlayer').filter('streamaVideoTime', ['$filter', function($filter) {
+	return function(seconds) {
+		var date =  new Date(1970, 0, 1).setSeconds(seconds);
+		if(seconds >= 3600){
+			return $filter('date')(date, 'hh:mm:ss');
+		}else{
+			return $filter('date')(date, 'mm:ss');
+		}
+	};
+}]);
 
 'use strict';
 
