@@ -224,7 +224,9 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				}
 
 				function toggleControls(){
-					$scope.isMobileControlsVisible = !$scope.isMobileControlsVisible;
+					$timeout(function () {
+						$scope.isMobileControlsVisible = !$scope.isMobileControlsVisible;
+					});
 				}
 
 				function clickVideo() {
