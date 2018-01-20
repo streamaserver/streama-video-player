@@ -11,7 +11,7 @@
     <div class="player-controls-mobile" ng-show="isMobileControlsVisible" >
       <div class="player-controls-topbar">
         <div class="player-controls-box player-control-button" ng-click="$event.stopPropagation(); closeVideo();">
-          <i class="ion-chevron-left"></i>
+          <i class="ion-close-round"></i>
         </div>
         <div class="player-controls-stretch player-controls-metaTitle">
           {{options.videoMetaTitle}}
@@ -25,7 +25,7 @@
           <i class="ion-ios-browsers"></i>
         </div>
         <div ng-if="options.hasNextEpisode" class="player-controls-box player-control-button" ng-click="$event.stopPropagation(); next();">
-          <i class="ion-chevron-right"></i>
+          <i class="ion-ios-skipforward"></i>
         </div>
 
       </div>
