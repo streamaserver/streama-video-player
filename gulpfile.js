@@ -11,7 +11,7 @@ var gulp = require('gulp'),
 
 
 gulp.task('default', ['clean'], function() {
-	gulp.start('templateCache', 'scripts', 'styles');
+	gulp.start('templateCache', 'scripts', 'styles', 'icomoon');
 });
 
 
@@ -23,6 +23,11 @@ gulp.task('styles', function() {
 		.pipe(cssnano())
 		.pipe(gulp.dest('dist'))
 		.pipe(notify({ message: 'Styles task complete' }));
+});
+gulp.task('icomoon', function() {
+	return gulp.src('src/css/icomoon/**')
+		.pipe(gulp.dest('dist/icomoon'))
+		.pipe(notify({ message: 'icomoon task complete' }));
 });
 
 gulp.task('templateCache', function() {
@@ -58,9 +63,9 @@ gulp.task('watch', function() {
 	gulp.watch('src/scripts/**/*.js', ['scripts']);
 
 	// Create LiveReload server
-	// livereload.listen();
+	livereload.listen();
 
 	// Watch any files in dist/, reload on change
-	// gulp.watch(['dist/**']).on('change', livereload.changed);
+	gulp.watch(['dist/**']).on('change', livereload.changed);
 
 });
