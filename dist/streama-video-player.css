@@ -3902,6 +3902,8 @@ video.subtitle-size-sm::cue {
     margin-left: 8px; }
     .player-controls-mobile .rzslider .rz-bar:not(.rz-selection) {
       background: rgba(216, 224, 243, 0.25); }
+  .player-controls-mobile .time-display strong {
+    color: #B0DDEF; }
   .player-controls-mobile .player-controls-stretch {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;

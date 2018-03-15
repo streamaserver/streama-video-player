@@ -70,7 +70,9 @@ video.subtitle-size-sm::cue {
     }
   }
   .time-display{
-
+    strong{
+      color: $primary;
+    }
   }
 
   .player-controls-stretch{

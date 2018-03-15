@@ -42,7 +42,7 @@
         </div>
         <div class="player-controls-box">
           <div class="time-display">
-            {{videoDuration | streamaVideoTime}}
+            <strong class="current-time">{{scrubber.model | streamaVideoTime}} | </strong>{{videoDuration | streamaVideoTime}}
           </div>
         </div>
       </div>
