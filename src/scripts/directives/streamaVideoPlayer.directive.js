@@ -46,6 +46,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				$scope.clickVideo = clickVideo;
 				$scope.fullScreen = toggleFullScreen;
 				$scope.changeSubtitleSize = changeSubtitleSize;
+				$scope.replay = replay;
 				$scope.next = $scope.options.onNext;
 				$scope.isMobileControlsVisible = true;
 				$scope.isInitialized = false;
@@ -505,7 +506,15 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				}
 
 
-
+				function replay(replayTime) {
+					var currentTime = video.currentTime;
+					var newTime = currentTime - replayTime;
+					if(newTime < 0){
+						newTime = 0;
+					}
+					video.currentTime = newTime;
+					$scope.scrubber.model = newTime;
+				}
 			}
     }
   }]);

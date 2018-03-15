@@ -34,6 +34,9 @@
           <i class="player-play-pause play ion-play" ng-show="!playing"></i>
           <i class="player-play-pause play ion-pause" ng-show="playing"></i>
         </div>
+        <div class="player-controls-box player-control-button" ng-click="$event.stopPropagation();replay(30)">
+          <i class="icon-replay_30"></i>
+        </div>
         <div class="player-controls-stretch">
           <rzslider ng-if="scrubber.options" rz-slider-model="scrubber.model" rz-slider-options="scrubber.options"></rzslider>
         </div>
