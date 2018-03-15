@@ -1,5 +1,6 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css?family=Lato:100,300,400,400i");
+@import url(icomoon/style.css);
 @-moz-keyframes spin {
   0% {
     -moz-transform: rotate(0deg);
