@@ -94,6 +94,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					initExternalTriggers();
 					initIsMobile();
 					$scope.$on('$destroy', onDirectiveDestroy);
+					$scope.$on('$stateChangeStart', onStateChangeStart);
 					$scope.$on('$stateChangeSuccess', onStateChangeSuccess);
 					generateVolumeScrubberOptions();
 
@@ -327,6 +328,10 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					});
 				}
 
+				function onStateChangeStart() {
+					$scope.isStateChangeStarted = true;
+				}
+
 				function onStateChangeSuccess(e, toState) {
 					if(toState.name != "player"){
 						//If full screen is enabled, it will be canceled.
@@ -342,7 +347,9 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					Mousetrap.reset();
 
 					console.log("destroy");
-					video.pause();
+					if($scope.initialPlay){
+						video.pause();
+					}
 					video.src = '';
 					$elem.find('video').children('source').prop('src', '');
 					$elem.find('video').remove().length = 0;
@@ -374,7 +381,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				}
 
 				function onVideoError(){
-					if(!video.duration && !$scope.initialPlay){
+					if(!video.duration && !$scope.initialPlay && !$scope.isStateChangeStarted){
 						console.error('Video Playback Error');
 						$scope.options.onError();
 					}
