@@ -37,7 +37,7 @@
   <script>
     angular.module('myModule', ['streama.videoPlayer']).run(function ($rootScope) {
 			$rootScope.videoOptions = {
-				videoSrc: 'http://techslides.com/demos/sample-videos/small.mp4',
+				videoSrc: 'https://www.html5rocks.com/en/tutorials/video/basics/devstories.webm',
 				isExternalLink: true,
 				episodeList: {
         	1: [
@@ -58,6 +58,13 @@
 					{"id": 1561, "src": "/example/sub-de.vtt", "subtitleLabel": "Deutsch", "subtitleSrcLang": "de", "contentType": "application/x-subrip"},
 					{"id": 1562, "src": "/example/sub-en.vtt", "subtitleLabel": "English", "subtitleSrcLang": "en", "contentType": "application/x-subrip"}
         ],
+
+				"nextVideo": {
+					"id": 522,
+					"overview": "The second 7 acts moving on to the semifinal round are revealed.",
+					"poster_path": "nEErM8lWoXwziGL8z723bBACE15.jpg",
+					"fullTitle": "s13e16 - Live Results 2"
+				},
 
         currentSubtitle: 1562
       }

@@ -27,6 +27,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
         var minimizeOnOutro = true;   //Userflag skip to next episode on outro
 				var videoSrc = $scope.options.videoSrc.toString();
 				var isAutoScrubberUpdate = true;
+				var END_OF_VIDEO = 30;
 
 
 				$scope.getBackgroundStyle = getBackgroundStyle;
@@ -50,6 +51,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				$scope.next = $scope.options.onNext;
 				$scope.isMobileControlsVisible = true;
 				$scope.isInitialized = false;
+				$scope.isNextVideoShowing = false;
 				$scope.loading = true;
 				$scope.initialPlay = false;
 
@@ -360,6 +362,8 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 						return;
 					}
 					_.set($scope.scrubber, 'model', video.currentTime);
+					determineNextVideoShowing();
+
 					$scope.$apply();
 					if(skipIntro)
 					{
@@ -371,6 +375,20 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 						{
 							video.currentTime = currEpisode.intro_end;
 						}
+					}
+
+
+					console.log('TIME UPDATE at time: ' + video.currentTime);
+				}
+
+				function determineNextVideoShowing() {
+					var videoOutroStart = $scope.options.outro_start;
+					if(videoOutroStart){
+						$scope.isNextVideoShowing = (_.get($scope.options, 'nextVideo.id') && video.currentTime > videoOutroStart);
+					}
+					else{
+						var remainingDurationSeconds = video.duration - video.currentTime;
+						$scope.isNextVideoShowing = (_.get($scope.options, 'nextVideo.id') && remainingDurationSeconds < END_OF_VIDEO);
 					}
 				}
 
@@ -418,6 +436,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				}
 
 				function pause(socketData) {
+					console.log('Activate PAUSE at time: ' + video.currentTime);
 					video.pause();
 					$scope.playing = false;
 					$scope.options.onPause(video, socketData);
@@ -432,6 +451,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				}
 
 				function play(socketData) {
+					console.log('Activate PLAY at time: ' + video.currentTime);
 					video.play();
 					$scope.playing = true;
 					$scope.options.onPlay(video, socketData);

@@ -47,4 +47,37 @@
     top: 50%;
     margin-top: -250px;
   }
+
+  .player-wrapper .next-video-overlay{
+    height: auto;
+    padding: 0;
+
+    .next-video-overlay-inner{
+      width: 100%;
+
+      .col-xs-4{
+        display: none;
+      }
+      .col-xs-8{
+        width: 100%;
+      }
+      p{
+        display: none;
+      }
+    }
+  }
+
+  .player-controls-mobile{
+    .player-controls-metaTitle{
+      font-size: 14px;
+    }
+    .player-control-button{
+      padding: .4em;
+      width: 1.8em;
+    }
+
+    .time-display .current-time{
+      display: none;
+    }
+  }
 }

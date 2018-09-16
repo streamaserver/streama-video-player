@@ -33,6 +33,7 @@ video.subtitle-size-sm::cue {
   }
 
   .player-controls-bottombar {
+    z-index: 9;
     padding: 0 10px;
     position: absolute;
     bottom: 0;
@@ -43,6 +44,7 @@ video.subtitle-size-sm::cue {
   }
 
   .player-controls-metaTitle{
+    word-break: break-all;
     font-size: 1.2em;
   }
 
