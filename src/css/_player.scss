@@ -46,11 +46,9 @@ streama-video-player{
     @include vendor-property('transition', 'padding 0.2s');
     position: absolute;
     bottom: 75px;
-    left: 0;
     right: 0;
-    background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 30%);
-    height: 40%;
-    padding: 120px 40px 0 0;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 0;
     z-index: 9;
 
     .next-video-overlay-inner{
@@ -58,7 +56,6 @@ streama-video-player{
       float: right;
 
       h4{
-        margin-top: 0px;
         color: #bfbfbf;
         font-weight: 300;
       }

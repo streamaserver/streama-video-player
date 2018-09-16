@@ -117,17 +117,14 @@ streama-video-player.nocursor {
     transition: padding 0.2s;
     position: absolute;
     bottom: 75px;
-    left: 0;
     right: 0;
-    background: linear-gradient(transparent 0%, rgba(0, 0, 0, 0.8) 30%);
-    height: 40%;
-    padding: 120px 40px 0 0;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 0;
     z-index: 9; }
     .player-wrapper .next-video-overlay .next-video-overlay-inner {
       width: 450px;
       float: right; }
       .player-wrapper .next-video-overlay .next-video-overlay-inner h4 {
-        margin-top: 0px;
         color: #bfbfbf;
         font-weight: 300; }
       .player-wrapper .next-video-overlay .next-video-overlay-inner h3 {
@@ -4000,19 +3997,21 @@ video.subtitle-size-sm::cue {
   .mobile-overlay-container {
     max-height: 500px;
     top: 50%;
-    margin-top: -250px; }
-
+    margin-top: -250px; } }
+@media (max-height: 724px) {
   .player-wrapper .next-video-overlay {
     height: auto;
     padding: 0; }
     .player-wrapper .next-video-overlay .next-video-overlay-inner {
-      width: 100%; }
-      .player-wrapper .next-video-overlay .next-video-overlay-inner .col-xs-4 {
-        display: none; }
-      .player-wrapper .next-video-overlay .next-video-overlay-inner .col-xs-8 {
-        width: 100%; }
+      width: 300px; }
       .player-wrapper .next-video-overlay .next-video-overlay-inner p {
         display: none; }
+      .player-wrapper .next-video-overlay .next-video-overlay-inner h4 {
+        font-size: 14px; }
+      .player-wrapper .next-video-overlay .next-video-overlay-inner h3 {
+        font-size: 15px; }
+      .player-wrapper .next-video-overlay .next-video-overlay-inner .play-button {
+        font-size: 22px; }
 
   .player-controls-mobile .player-controls-metaTitle {
     font-size: 14px; }
