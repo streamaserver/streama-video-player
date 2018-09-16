@@ -116,7 +116,7 @@ streama-video-player.nocursor {
     -ms-transition: padding 0.2s;
     transition: padding 0.2s;
     position: absolute;
-    bottom: 75px;
+    bottom: 20px;
     right: 0;
     background: rgba(0, 0, 0, 0.8);
     padding: 0;
@@ -243,6 +243,8 @@ streama-video-player.nocursor {
     -o-animation: spin 1s infinite linear;
     -ms-animation: spin 1s infinite linear;
     animation: spin 1s infinite linear; }
+  .player-wrapper.mobile-controls-visible .next-video-overlay {
+    bottom: 75px; }
 
 .player-wrapper button.button {
   padding: .5em 2em;

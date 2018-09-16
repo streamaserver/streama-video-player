@@ -1,4 +1,4 @@
-<div class="player-wrapper">
+<div class="player-wrapper" ng-class="{'mobile-controls-visible': isMobileControlsVisible}">
   <pre>{{options.videoStillImage}}</pre>
   <div class="video-wrapper-inner" ng-style="getBackgroundStyle()" ng-click="toggleControls()">
 

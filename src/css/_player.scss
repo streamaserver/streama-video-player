@@ -45,7 +45,7 @@ streama-video-player{
   .next-video-overlay{
     @include vendor-property('transition', 'padding 0.2s');
     position: absolute;
-    bottom: 75px;
+    bottom: 20px;
     right: 0;
     background: rgba(0, 0, 0, 0.8);
     padding: 0;
@@ -202,6 +202,12 @@ streama-video-player{
     text-align: center;
 
     @include vendor-property('animation', 'spin 1s infinite linear');
+  }
+
+  &.mobile-controls-visible{
+    .next-video-overlay{
+      bottom: 75px;
+    }
   }
 }
 
