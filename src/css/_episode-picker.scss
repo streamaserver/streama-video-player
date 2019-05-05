@@ -45,6 +45,11 @@
 
   .play-button{
     font-size: 3em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -0.75em;
+    margin-top: -0.75em;
   }
 
   &.active{
