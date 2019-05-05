@@ -26,6 +26,7 @@ angular.module('streama.videoPlayer').factory('streamaVideoPlayerService', [
 				videoType: '',
 				videoTrack: '',
 				subtitles: [],
+				videoFiles: [],
 				videoOverlayEnabled: true,
 				showEpisodeBrowser: false,
 				hasNextEpisode: false,

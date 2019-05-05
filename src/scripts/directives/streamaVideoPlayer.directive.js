@@ -33,6 +33,8 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				$scope.getBackgroundStyle = getBackgroundStyle;
 				$scope.changeEpisode = changeEpisode;
 				$scope.selectSubtitle = selectSubtitle;
+				$scope.selectVideoFile = selectVideoFile;
+				$scope.isVideoFileSelected = isVideoFileSelected;
 				$scope.showControls = showControls;
 				$scope.toggleSelectEpisodes = toggleSelectEpisodes;
 				$scope.createNewPlayerSession = createNewPlayerSession;
@@ -133,6 +135,20 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					$scope.options.onSubtitleSelect(subtitle);
 					$scope.selectedSubtitleId = _.get(subtitle, 'id');
 					localStorageService.set('selectedSubtitleLanguage', _.get(subtitle, 'subtitleSrcLang'));
+				}
+
+				function selectVideoFile(videoFile){
+					$scope.initialPlay = false;
+					$scope.options.customStartingTime = video.currentTime;
+					$scope.options.selectedVideoFile = videoFile;
+					$scope.options.videoSrc = (videoFile.src || videoFile.externalLink);
+					$scope.options.originalFilename = videoFile.originalFilename;
+					$scope.options.videoType = videoFile.contentType;
+					localStorageService.set('selectedVideoFile', videoFile.label);
+				}
+
+				function isVideoFileSelected(videoFile){
+					return _.isEqualBy($scope.options.selectedVideoFile, videoFile, 'id');
 				}
 
 				function getCurrentSubtitleTrack() {
@@ -378,7 +394,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					}
 
 
-					console.log('TIME UPDATE at time: ' + video.currentTime);
+					// console.log('TIME UPDATE at time: ' + video.currentTime);
 				}
 
 				function determineNextVideoShowing() {

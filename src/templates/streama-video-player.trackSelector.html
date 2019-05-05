@@ -25,6 +25,18 @@
         <li class="subtitle-size-sm" ng-class="{'active': options.subtitleSize == 'sm'}" ng-click="changeSubtitleSize('sm')">A</li>
       </ul>
     </div>
+    <div class="col-50">
+      <h2>{{'VIDEO.VIDEO_FILES' | translate}}</h2>
+      <ul class="track-selector-list">
+        <li class="track-selector-item" ng-class="{'active': isVideoFileSelected(track)}"
+            ng-repeat="track in options.videoFiles" ng-click="selectVideoFile(track)">
+          {{track.label || track.originalFilename}}
+
+
+          <i ng-if="isVideoFileSelected(track)" class="ion-checkmark"></i>
+        </li>
+      </ul>
+    </div>
   </div>
 
 
