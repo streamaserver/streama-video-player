@@ -15,6 +15,7 @@
   <script src="../bower_components/lodash/lodash.js"></script>
   <script src="../bower_components/streama-i18n/dist/streama-i18n.min.js"></script>
   <script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="lodashMixins.js"></script>
   <script src="../dist/streama-video-player.js"></script>
   <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="../bower_components/Ionicons/css/ionicons.css">
@@ -36,9 +37,15 @@
 
   <script>
     angular.module('myModule', ['streama.videoPlayer']).run(function ($rootScope) {
+			var videoFiles = [
+        {"id": 1561, "src": "https://www.html5rocks.com/en/tutorials/video/basics/devstories.webm", "label": "Deutsch", isDefault: true, "contentType": "audio/webm"},
+        {"id": 1562, "src": "https://www.w3schools.com/html/mov_bbb.mp4", "label": "English", "contentType": "audio/webm"}
+      ];
+
 			$rootScope.videoOptions = {
 				videoSrc: 'https://www.html5rocks.com/en/tutorials/video/basics/devstories.webm',
 				isExternalLink: true,
+        selectedVideoFile: videoFiles[0],
 				episodeList: {
         	1: [
 						{id: 1, name: 'Pilot', season_number: 1, episode_number:1, episodeString: 's01e01', still_path: 'https://image.tmdb.org/t/p/original/ydlY3iPfeOAvu8gVqrxPoMvzNCn.jpg', overview: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.', videoDuration: 1320},
@@ -58,6 +65,8 @@
 					{"id": 1561, "src": "/example/sub-de.vtt", "subtitleLabel": "Deutsch", "subtitleSrcLang": "de", "contentType": "application/x-subrip"},
 					{"id": 1562, "src": "/example/sub-en.vtt", "subtitleLabel": "English", "subtitleSrcLang": "en", "contentType": "application/x-subrip"}
         ],
+
+        videoFiles: videoFiles,
 
 				"nextVideo": {
 					"id": 522,

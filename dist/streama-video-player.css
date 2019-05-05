@@ -4117,7 +4117,12 @@ video.subtitle-size-sm::cue {
     height: 159px;
     position: relative; }
   .mobile-episode-box .play-button {
-    font-size: 3em; }
+    font-size: 3em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -0.75em;
+    margin-top: -0.75em; }
   .mobile-episode-box.active {
     border-bottom: 7px solid #B0DDEF; }
     .mobile-episode-box.active h3 {
