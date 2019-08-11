@@ -18,10 +18,12 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					return;
 				}
 				var video;
+				var lastMouseMovement;
         var controlDisplayTimeout;
         var overlayTimeout;
         var volumeChangeTimeout;
         var currentTimeChangeTimeout;
+        var cursorHidingTimeout;
 				var currEpisode = null;
         var skipIntro = true;         //Userflag intro should be skipped
         var minimizeOnOutro = true;   //Userflag skip to next episode on outro
@@ -45,6 +47,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 				$scope.pause = pause;
 				$scope.closeVideo = closeVideo;
 				$scope.toggleControls = toggleControls;
+				$scope.toggleCursor = toggleCursor;
 				$scope.toggleMobileOverlayBox = toggleMobileOverlayBox;
 				$scope.clickVideo = clickVideo;
 				$scope.fullScreen = toggleFullScreen;
@@ -249,6 +252,16 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					});
 				}
 
+				function toggleCursor() {
+					lastMouseMovement = new Date();
+					$elem.removeClass('nocursor');
+					$timeout.cancel(cursorHidingTimeout);
+
+					cursorHidingTimeout = $timeout(function () {
+						$elem.addClass('nocursor');
+					}, 3000);
+				}
+
 				function clickVideo() {
 					$scope.options.onVideoClick();
 				}
@@ -343,6 +356,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					$scope.$on('triggerVideoTimeChange', function (e, data) {
 						video.currentTime = data.currentPlayerTime;
 						$scope.scrubber.model = data.currentPlayerTime;
+						console.log('%c videoTimeChange', 'color: deeppink; font-weight: bold; text-shadow: 0 0 5px deeppink;');
 					});
 				}
 
@@ -379,6 +393,13 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					}
 					_.set($scope.scrubber, 'model', video.currentTime);
 					determineNextVideoShowing();
+
+					if($scope.isMobileControlsVisible && lastMouseMovement){
+						var secondsSiceLastMouseMove = ((new Date()).getTime() - lastMouseMovement.getTime()) / 1000;
+						if(secondsSiceLastMouseMove > 4){
+							toggleControls();
+						}
+					}
 
 					$scope.$apply();
 					if(skipIntro)
@@ -423,6 +444,7 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 
 				function onVideoPlaying() {
 					$scope.loading = false;
+					console.log('%c PLAYING', 'color: deeppink; font-weight: bold; text-shadow: 0 0 5px deeppink;');
 				}
 
 				function onVideoCanPlay() {
@@ -472,6 +494,11 @@ angular.module('streama.videoPlayer').directive('streamaVideoPlayer', [
 					$scope.playing = true;
 					$scope.options.onPlay(video, socketData);
 					$scope.overlayVisible = false;
+					if($scope.isMobileControlsVisible){
+						$timeout(function(){
+							$scope.isMobileControlsVisible = false;
+						}, 1000);
+					}
 				}
 
 				function createNewPlayerSession() {

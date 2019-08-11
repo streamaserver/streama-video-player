@@ -1,6 +1,6 @@
 <div class="player-wrapper" ng-class="{'mobile-controls-visible': isMobileControlsVisible}">
   <pre>{{options.videoStillImage}}</pre>
-  <div class="video-wrapper-inner" ng-style="getBackgroundStyle()" ng-click="toggleControls()">
+  <div class="video-wrapper-inner" ng-style="getBackgroundStyle()" ng-click="toggleControls()" ng-mousemove="toggleCursor()">
 
     <div ng-if="loading">
       <i class="spinner ion-load-c" ></i>
